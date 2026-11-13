@@ -765,6 +765,7 @@
       }
     }
   /* Project-specific additions to the shared research-page aesthetic. */
+.author { margin: 20px 0 0; color: var(--cyan); font-size: 18px; font-weight: 500; }
 h1 { max-width: 800px; font-size: clamp(36px, 5.5vw, 62px); }
 h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 520; font-size: clamp(27px, 3.5vw, 38px); }
 section { scroll-margin-top: 72px; }
