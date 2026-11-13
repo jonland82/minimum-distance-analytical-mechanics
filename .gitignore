@@ -1,0 +1,27 @@
+# Local Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+
+# Downloaded experimental archives and extracted raw data
+*.zip
+*.tar
+analysis/lhaaso_data/
+analysis/pks2155/dl3/
+
+# Cached external publications
+analysis/lhaaso_paper.txt
+analysis/crab/paper.html
+analysis/crab/paper.txt
+analysis/crab/publication_page.html
+analysis/pks2155/paper.html
+analysis/pks2155/paper.txt
+
+# LaTeX build intermediates and layout previews; keep finished PDFs
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+preview/

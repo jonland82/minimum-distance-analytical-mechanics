@@ -1,0 +1,53 @@
+{
+  "description": "Companion note numerical inputs; no new confidence inference",
+  "generated_values": {
+    "GRBUpper": 9.906676981439506e-28,
+    "CrabUpper": 1.158577477490383e-26,
+    "PKSUpper": 1.0680636120614469e-26,
+    "PlanckLength": 1.6162550244237053e-35,
+    "LengthGap": 61294021.251206,
+    "CoefficientGap": 3756957041143293.0,
+    "CountFactor": 1.4114726208996168e+31,
+    "GRBPlanckDelay": 3.1646653322682672e-15,
+    "CrabPlanckDelay": 6.502546751303647e-23,
+    "PKSPlanckDelay": 7.344057705178292e-16,
+    "GRBHighestLag": 0.9363572713028282,
+    "GRBHighestError": 0.43055693289588026
+  },
+  "inputs": [
+    {
+      "path": "analysis/translated_bounds.json",
+      "sha256": "d364297b843fb1352a7aae65bd12788670bcf15245ccba90956e7d312466e8b8"
+    },
+    {
+      "path": "analysis/ccf_results.json",
+      "sha256": "bb7ba5eb5f35f49b95a53230a5defb2932bee845fdbbc790b764c1efeabd9d2d"
+    },
+    {
+      "path": "analysis/crab/results.json",
+      "sha256": "db29b6a1d85cf6e12f556ca2dff60d3897e93eb0aec83ef869b2fa23e1a28cb1"
+    },
+    {
+      "path": "analysis/pks2155/results.json",
+      "sha256": "0c8024d7d5ceaa13c30318b415e99873319cca78974e4a9276c9656c9333c935"
+    }
+  ],
+  "published_bounds": [
+    {
+      "observation": "LHAASO: GRB 221009A",
+      "EQG2_lower_GeV": 690000000000.0,
+      "Lambda_upper_m": 9.906676981439506e-28
+    },
+    {
+      "observation": "MAGIC: Crab pulsar",
+      "EQG2_lower_GeV": 59000000000.0,
+      "Lambda_upper_m": 1.158577477490383e-26
+    },
+    {
+      "observation": "H.E.S.S.: PKS 2155--304",
+      "EQG2_lower_GeV": 64000000000.0,
+      "Lambda_upper_m": 1.0680636120614469e-26
+    }
+  ],
+  "excluded_from_scientific_results": "HESS DL3 DR1 tool-only event diagnostic; no restricted archive outcomes or figures reproduced"
+}

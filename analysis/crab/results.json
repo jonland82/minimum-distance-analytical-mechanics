@@ -1,0 +1,123 @@
+{
+  "source": "https://arxiv.org/html/1709.00346v1",
+  "published_doi": "10.3847/1538-4365/aa8404",
+  "analysis_date": "2026-11-13",
+  "event_level_fit_performed": false,
+  "calculation": "Recalculation of reported peak differences and algebraic translation of published bounds",
+  "constants": {
+    "period_s": 0.0337,
+    "distance_kpc": 2.0,
+    "distance_uncertainty_kpc": 0.5,
+    "hbar_c_GeV_m": 1.9732698045930252e-16,
+    "Planck_length_m": 1.6162550244237053e-35
+  },
+  "peak_inputs": {
+    "mean_energies_GeV": [
+      75.0,
+      465.0,
+      770.0
+    ],
+    "phases": [
+      0.3983,
+      0.4032,
+      0.4035
+    ],
+    "statistical_phase_errors": [
+      0.0013,
+      0.0063,
+      0.0047
+    ],
+    "location_in_source": "Section III; phase differences immediately preceding Table 2"
+  },
+  "peak_comparisons": [
+    {
+      "comparison": "55-100 vs 600-1200 GeV",
+      "mean_low_GeV": 75.0,
+      "mean_high_GeV": 770.0,
+      "reported_phase_difference": 0.0052,
+      "phase_difference_recalculated_from_peaks": 0.005200000000000038,
+      "statistical_phase_error": 0.0049,
+      "systematic_phase_error": 0.003,
+      "quadrature_phase_error": 0.00574543296888929,
+      "lag_s": 0.00017524,
+      "statistical_lag_error_s": 0.00016512999999999999,
+      "systematic_lag_error_s": 0.0001011,
+      "quadrature_lag_error_s": 0.00019362109105156908,
+      "illustrative_gaussian_z": 0.9050666900401183,
+      "illustrative_two_sided_gaussian_p": 0.3654300575760274,
+      "approximate_signed_lag_interval_95_s": [
+        -0.00020425733846107536,
+        0.0005547373384610753
+      ],
+      "Planck_nearest_neighbor_delay_s": 1.0138138032446671e-22,
+      "delay_at_published_profile_bound_s": 5.2094105745148165e-05
+    },
+    {
+      "comparison": "400-600 vs 600-1200 GeV",
+      "mean_low_GeV": 465.0,
+      "mean_high_GeV": 770.0,
+      "reported_phase_difference": 0.0003,
+      "phase_difference_recalculated_from_peaks": 0.00030000000000002247,
+      "statistical_phase_error": 0.0078,
+      "systematic_phase_error": 0.003,
+      "quadrature_phase_error": 0.008357032966310471,
+      "lag_s": 1.011e-05,
+      "statistical_lag_error_s": 0.00026286,
+      "systematic_lag_error_s": 0.0001011,
+      "quadrature_lag_error_s": 0.0002816320109646629,
+      "illustrative_gaussian_z": 0.0358979079308869,
+      "illustrative_two_sided_gaussian_p": 0.971363764023199,
+      "approximate_signed_lag_interval_95_s": [
+        -0.0005418887414907392,
+        0.0005621087414907393
+      ],
+      "Planck_nearest_neighbor_delay_s": 6.502546751303647e-23,
+      "delay_at_published_profile_bound_s": 3.341287690018081e-05
+    }
+  ],
+  "translated_published_bounds": [
+    {
+      "method": "Peak comparison: 75 vs 770 GeV",
+      "published_confidence": 0.95,
+      "EQG2_lower_GeV": 18000000000.0,
+      "Lambda_upper_m": 3.797559509551811e-26,
+      "Lambda_upper_Planck_lengths": 2349604147.962897,
+      "predicted_delay_at_bound_770_vs_465_s": 0.0003589821743503994
+    },
+    {
+      "method": "Peak comparison: 465 vs 770 GeV",
+      "published_confidence": 0.95,
+      "EQG2_lower_GeV": 14000000000.0,
+      "Lambda_upper_m": 4.8825765122809e-26,
+      "Lambda_upper_Planck_lengths": 3020919618.8094387,
+      "predicted_delay_at_bound_770_vs_465_s": 0.0005934195127016807
+    },
+    {
+      "method": "Profile likelihood: statistical only",
+      "published_confidence": 0.95,
+      "EQG2_lower_GeV": 80000000000.0,
+      "Lambda_upper_m": 8.544508896491574e-27,
+      "Lambda_upper_Planck_lengths": 528660933.2916518,
+      "predicted_delay_at_bound_770_vs_465_s": 1.817347257648897e-05
+    },
+    {
+      "method": "Profile likelihood: including reported systematics",
+      "published_confidence": 0.95,
+      "EQG2_lower_GeV": 59000000000.0,
+      "Lambda_upper_m": 1.158577477490383e-26,
+      "Lambda_upper_Planck_lengths": 716828384.1242735,
+      "predicted_delay_at_bound_770_vs_465_s": 3.341287690018081e-05
+    }
+  ],
+  "official_length_bound_relative_to_LHAASO": 11.694915254237289,
+  "limitations": [
+    "No original MAGIC event sample or run-specific detector response located for this study",
+    "No independent peak fit or calibrated profile-likelihood reproduction",
+    "Quadrature treatment of reported systematic error is illustrative, not a new coverage calibration",
+    "Source phase changes are degenerate with propagation delays",
+    "Energy-band means do not fix true second energy moments; no new bound is inferred from them",
+    "Reported systematics do not include arbitrary intrinsic energy-dependent source drift",
+    "Published bound inherits source, detector and quadratic-regime assumptions",
+    "Published limits are not combined with LHAASO into a joint confidence limit"
+  ]
+}

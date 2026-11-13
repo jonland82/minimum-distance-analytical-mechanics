@@ -1,0 +1,54 @@
+{
+  "url": "https://www.nhepsdc.cn/api/resource/detail/file/download/283/1352",
+  "landing_page": "https://www.nhepsdc.cn/resource/astro/lhaaso/paper-PRL2024-133071501",
+  "dataset_doi": "10.12402/opendata/LHAASO/20240829100037",
+  "retrieved_date": "2026-11-13",
+  "sha256": "9f694d18c5e2f65562c6f841c500361385bee6351e45544c5a368d7e79c10644",
+  "bytes": 72331727,
+  "files": [
+    {
+      "name": "\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/",
+      "bytes": 0
+    },
+    {
+      "name": "\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/flux_GRB_index_0.135_2.579_ebl_high.root",
+      "bytes": 24535512
+    },
+    {
+      "name": "__MACOSX/\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/._flux_GRB_index_0.135_2.579_ebl_high.root",
+      "bytes": 266
+    },
+    {
+      "name": "\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/README",
+      "bytes": 1627
+    },
+    {
+      "name": "__MACOSX/\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/._README",
+      "bytes": 327
+    },
+    {
+      "name": "\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/flux_GRB_index_0.135_2.579_ebl_normal.root",
+      "bytes": 24522542
+    },
+    {
+      "name": "__MACOSX/\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/._flux_GRB_index_0.135_2.579_ebl_normal.root",
+      "bytes": 266
+    },
+    {
+      "name": "\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/flux_GRB_index_0.135_2.579_ebl_low.root",
+      "bytes": 24505056
+    },
+    {
+      "name": "__MACOSX/\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/._flux_GRB_index_0.135_2.579_ebl_low.root",
+      "bytes": 266
+    },
+    {
+      "name": "\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/light_curve.root",
+      "bytes": 7975052
+    },
+    {
+      "name": "__MACOSX/\u00b5\u00a3\u00ac\u03c3\u00e6\u255c\u03c3\u00c9\u00ec\u00b5\u00fb\u00e7\u03a3\u2557\u2562\u03c3\u00f1\u2563/._light_curve.root",
+      "bytes": 210
+    }
+  ]
+}

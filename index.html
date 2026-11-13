@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A mathematical exploration of minimum distance, lattice dynamics, and astronomical photon-timing tests by Jonathan Robert Landers.">
+  <title>Consequences of Minimum Distance</title>
+  <link rel="stylesheet" href="site.css">
+  <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["$$","$$"]]},svg:{fontCache:"global"}};</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script defer src="site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar"><nav class="nav" aria-label="Primary">
+    <a class="mark" href="#top"><span class="mark-dot" aria-hidden="true"></span>Minimum Distance</a>
+    <div class="navlinks"><a href="#story">Premise</a><a href="#observations">Observations</a><a href="#dynamics">Dynamics</a><a href="#papers">Papers</a><a href="https://github.com/jonland82/minimum-distance-analytical-mechanics">Code</a></div>
+  </nav></header>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title"><div class="hero-inner">
+      <div class="kicker"><span class="pill">Jonathan Robert Landers</span><span class="pill">Geometry · dynamics · measurement</span></div>
+      <h1 id="hero-title">What follows if distance<br>has a lower limit?</h1>
+      <p class="subtitle">Start with a simple premise: distinct positions are separated by at least a distance \(k\). Follow it through triangles, motion, lattice waves, and astronomical timing. Then ask how much of the prediction comes from the geometry—and how much comes from the dynamics we chose.</p>
+      <div class="actions"><a class="button primary" href="consequences_of_minimum_distance.pdf">Read the original paper</a><a class="button" href="#papers">All three notes</a><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics">Code &amp; results</a></div>
+    </div></section>
+    <section aria-label="Key findings"><div class="metric-row">
+      <div class="metric"><strong>\(d(x,y)\geq k\)</strong><span>the premise, for distinct positions</span></div>
+      <div class="metric"><strong>3 source comparisons</strong><span>gamma-ray burst, pulsar, and active galaxy</span></div>
+      <div class="metric"><strong>\(\sim 10^{-27}\) m</strong><span>strongest translated effective-length limit in this study</span></div>
+      <div class="metric"><strong>Dynamics matter</strong><span>stable signed couplings can cancel the quadratic slowdown</span></div>
+    </div></section>
+    <section id="story" aria-labelledby="story-title">
+      <div class="section-head"><h2 id="story-title">A small premise.<br>A chain of consequences.</h2><p class="lead">Uniform discreteness is a precise mathematical assumption. A lattice, an interaction law, and an interpretation as photon propagation are additional choices. Each step changes what can be concluded.</p></div>
+      <div class="story-grid">
+        <article class="story-card"><span class="step">1</span><h3>Geometry</h3><p>A Euclidean right triangle needs a hypotenuse at least \(\sqrt{2}k\). Bisection must stop. A continuous point trajectory from a connected time interval into this discrete space is constant.</p></article>
+        <article class="story-card"><span class="step">2</span><h3>A model of motion</h3><p>Place continuous-time wave amplitudes on \(k\mathbb Z\). With symmetric positive couplings, short waves travel more slowly. The leading group-speed correction is quadratic in wave number.</p></article>
+        <article class="story-card"><span class="step">3</span><h3>A conditional test</h3><p>If photons follow that wave law, high-energy photons acquire a propagation delay. Published astronomical timing limits constrain its coefficient. They do not establish a smallest distance.</p></article>
+      </div>
+    </section>
+    <section aria-labelledby="formalism-title">
+      <div class="section-head"><h2 id="formalism-title">From interactions<br>to a timing prediction</h2><p class="lead">For finite-range positive couplings \(g_r\), the effective interaction length \(\Lambda\) is at least the lattice spacing. Nearest neighbors give \(\Lambda=k\). The quadratic expansion applies at sufficiently low wave number.</p></div>
+      <div class="equation-band"><div class="equation">
+        <div class="math-line">$$\ddot u_n=\sum_{r=1}^{R}g_r(u_{n+r}-2u_n+u_{n-r})$$</div>
+        <div class="math-line">$$\Lambda^2=k^2\frac{\sum_r g_r r^4}{\sum_r g_r r^2}\geq k^2$$</div>
+        <div class="math-line">$$\frac{v_g}{c}=1-\frac{\Lambda^2q^2}{8}+O(q^4)$$</div>
+      </div><div class="model-note"><span class="eyebrow">The scale gap</span><h3>About 60 million<br>Planck lengths</h3><p>The strongest translated limit is still about \(6.1\times10^7\ell_P\). For Planck spacing and nearest neighbors, the illustrative GRB delay is only \(3.2\times10^{-15}\) seconds.</p><p>That is roughly \(3.8\times10^{15}\) below the delay coefficient at the published limit.</p></div></div>
+    </section>
+    <section id="observations" aria-labelledby="observations-title">
+      <div class="section-head"><h2 id="observations-title">What do the<br>observations say?</h2><p class="lead">No affirmative propagation signal is established here. The limits below transform published 95% energy-scale bounds using \(E_{\mathrm{QG},2}=\sqrt{12}\hbar c/\Lambda\), retaining the source and detector assumptions of each analysis.</p></div>
+      <div class="table-wrap"><table><caption>Conditional upper limits on the effective interaction length</caption><thead><tr><th scope="col">Source / instrument</th><th scope="col">Work done here</th><th scope="col">\(\Lambda\) limit</th></tr></thead><tbody>
+        <tr><th scope="row">GRB 221009A · LHAASO</th><td>Exploratory cross-correlation of released counts; translated collaboration limit</td><td>\(9.91\times10^{-28}\) m</td></tr>
+        <tr><th scope="row">Crab pulsar · MAGIC</th><td>Recalculated published peak summaries; translated published limit</td><td>\(1.16\times10^{-26}\) m</td></tr>
+        <tr><th scope="row">PKS 2155-304 · H.E.S.S.</th><td>Recalculated published uncertainty and translated published limit</td><td>\(1.07\times10^{-26}\) m</td></tr>
+      </tbody></table></div>
+      <p class="footnote">These are separate limits, with no combined confidence interval. The corrected LHAASO result includes zero; its uncorrected timing structure is not a detection. The public H.E.S.S. test archive covers different nights and was not used to reproduce the published physical fit.</p>
+      <div class="actions"><a class="button" href="companion_note/photon_timing_companion.pdf">Read the experimental companion</a><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics/tree/master/analysis">Data, methods &amp; provenance</a></div>
+    </section>
+    <section id="dynamics" aria-labelledby="dynamics-title">
+      <div class="section-head"><h2 id="dynamics-title">Keep the spacing.<br>Change the dynamics.</h2><p class="lead">The follow-up stays on the same lattice. Standard centered finite-difference couplings, including negative pair couplings, have a positive total energy and suppress dispersion to arbitrarily high order as the interaction range grows.</p></div>
+      <div class="explorer">
+        <div class="explorer-head"><div><span class="eyebrow">Explore the mathematical model</span><h3>Group speed on a fixed lattice</h3></div><label for="range">Interaction range <output id="range-value" for="range">4</output><input id="range" type="range" min="1" max="16" value="4" step="1"></label></div>
+        <svg id="speed-chart" viewBox="0 0 880 330" role="img" aria-labelledby="chart-title chart-desc"><title id="chart-title">Group speed versus dimensionless wave number</title><desc id="chart-desc">The centered finite-difference family approaches continuum speed away from the Brillouin-zone edge as its interaction range increases. Every finite-range curve falls to zero at the edge.</desc><g id="chart-grid"></g><path id="continuum" d="M64 40H850" stroke="#e8c46f" stroke-dasharray="7 6" fill="none"/><path id="nearest" stroke="#d88e8e" stroke-width="2" fill="none"/><path id="centered" stroke="#72d7d1" stroke-width="3" fill="none"/></svg>
+        <div class="legend"><span class="gold">— Continuum</span><span class="rose">— Nearest neighbor</span><span class="cyan">— Centered, range <span id="legend-range">4</span></span></div>
+        <p id="speed-summary" aria-live="polite">Choose an interaction range to compare the group speeds.</p>
+        <noscript><p>Enable JavaScript to explore the curves, or read the numerical results in the dynamics note below.</p></noscript>
+      </div>
+      <div class="story-grid takeaways"><article class="mini-card"><strong>Positive interactions have a limit</strong><p>Nearest neighbors maximize phase speed among positive symmetric finite-range rules at fixed long-wave speed.</p></article><article class="mini-card"><strong>Stability allows more</strong><p>The centered signed family has nonnegative energy and group speed between zero and \(c\). Its error begins at order \((qk)^{2R}\).</p></article><article class="mini-card"><strong>The cutoff still matters</strong><p>No finite-range rule exactly reproduces continuum dispersion on an open interval. Convergence of group speed is restricted to bands strictly below the zone edge.</p></article></div>
+      <p class="footnote">This is a model calculation, not experimental evidence. The finite-difference formulas are established numerical mathematics. A group-speed cap and energy stability do not supply a complete relativistic theory.</p>
+    </section>
+    <section id="papers" aria-labelledby="papers-title">
+      <div class="section-head"><h2 id="papers-title">Three notes.<br>One line of inquiry.</h2><p class="lead">Read the premise first, follow the observational checks, then revisit the dynamical assumptions. Sources, scripts, figures, and saved results are included in the repository.</p></div>
+      <div class="story-grid paper-list">
+        <article class="story-card"><span class="eyebrow cyan">01 / The premise</span><h3>Consequences of Minimum Distance in Mathematics and Physics</h3><p>Geometric restrictions, classical lattice waves, a positive-coupling dispersion bound, and a conditional photon test.</p><div class="actions"><a class="button primary" href="consequences_of_minimum_distance.pdf">Read PDF</a><a class="text-link" href="consequences_of_minimum_distance.tex">LaTeX</a></div></article>
+        <article class="story-card"><span class="eyebrow gold">02 / Observations</span><h3>Photon-Timing Tests of a Minimum-Distance Propagation Model</h3><p>Three source comparisons, the difference between exploratory calculations and published bounds, and the sensitivity gap.</p><div class="actions"><a class="button primary" href="companion_note/photon_timing_companion.pdf">Read PDF</a><a class="text-link" href="companion_note/photon_timing_companion.tex">LaTeX</a></div></article>
+        <article class="story-card"><span class="eyebrow green">03 / Dynamics</span><h3>How closely can a discrete space imitate continuum waves?</h3><p>Stable signed interactions, high-order cancellation, numerical optimization, and what finite interaction range still prevents.</p><div class="actions"><a class="button primary" href="dynamics_study/dynamics_note.pdf">Read PDF</a><a class="text-link" href="dynamics_study/dynamics_note.tex">LaTeX</a></div></article>
+      </div>
+    </section>
+    <section aria-labelledby="next-title"><div class="future-card"><span class="eyebrow">Where this leaves the question</span><h2 id="next-title">A minimum distance needs a physical model.</h2><p>The observations leave Planck-spacing versions of the positive-coupling model far beyond reach. The dynamics study adds another lesson: minimum spacing alone does not enforce a detectable quadratic delay. Further tests need additional physical assumptions about interactions, matter, or cosmology before they can make specific predictions.</p><div class="actions"><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics#reproduce">Reproduce the calculations</a><a class="button" href="https://jonland82.github.io/sorting-as-gradient-flow/">Related: Sorting as Gradient Flow</a></div></div></section>
+  </main>
+  <footer class="footer"><div class="footer-inner"><span>Jonathan Robert Landers · November 2026</span><span>Mathematical exploration &amp; conditional observational tests</span><a href="https://github.com/jonland82/minimum-distance-analytical-mechanics">GitHub ↗</a></div></footer>
+</body>
+</html>

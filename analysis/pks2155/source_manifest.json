@@ -1,0 +1,9 @@
+{
+  "archive_url": "https://www.mpi-hd.mpg.de/hfm/HESS/pages/dl3-dr1/hess_dl3_dr1.tar",
+  "terms_of_use_file": "dl3/README.txt",
+  "archive_bytes": 45004800,
+  "archive_sha256": "cb0439101300d072e084c255225a863c8dafe1fbf76814ab6188f9b112d7f354",
+  "paper_sha256": "6d7252d751468b136c06ac4368bb8ff1f3c8e3332e5a57de62fa31eb4054641e",
+  "release_notes": "https://www.mpi-hd.mpg.de/hfm/HESS/pages/dl3-dr1/hess_dl3_dr1.pdf",
+  "original_published_July28_event_data_located": false
+}

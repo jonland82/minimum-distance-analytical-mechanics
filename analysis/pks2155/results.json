@@ -1,0 +1,539 @@
+{
+  "analysis_date": "2026-11-13",
+  "published_July28_result": {
+    "event_fit_reproduced": false,
+    "redshift": 0.116,
+    "source": "https://arxiv.org/html/1101.3650v1",
+    "source_doi": "10.1016/j.astropartphys.2011.01.007",
+    "quadratic_coefficient_s_TeV2": 1.7,
+    "statistical_error_s_TeV2": 6.3,
+    "systematic_error_s_TeV2": 6.6,
+    "quadrature_error_s_TeV2": 9.12414379544733,
+    "illustrative_gaussian_z": 0.18631885227940492,
+    "approximate_gaussian_interval95_s_TeV2": [
+      -16.183321839076765,
+      19.583321839076763
+    ],
+    "confidence95_EQG2_lower_GeV": 64000000000.0,
+    "Lambda_upper_m": 1.0680636120614469e-26,
+    "Lambda_upper_Planck_lengths": 660826166.6145648,
+    "cosmology": {
+      "H0_s_inverse": 2.3e-18,
+      "Omega_m": 0.3,
+      "K2_s": 5.494890399206045e+16
+    },
+    "Planck_nearest_neighbor_coefficient_s_TeV2": 4.6080362071706927e-17,
+    "Planck_delay_4_vs_0point25TeV_s": 7.344057705178292e-16,
+    "length_bound_relative_to_LHAASO": 10.78125,
+    "caveat": "Published uncertainties and assumptions retained; arbitrary intrinsic source lags are not excluded"
+  },
+  "public_data_use": "Private technical demonstration only; DR1 terms prohibit scientific publications and new source claims",
+  "public_July29_30_diagnostic": {
+    "radius_deg": 0.11,
+    "energy_min_TeV": 1.07151930523761,
+    "energy_max_TeV": 4.0,
+    "within_run_rank_association": 0.006990857455660265,
+    "permutation_p_two_sided": 0.8114377124575085,
+    "permutation_count": 5000,
+    "seed": 2155304,
+    "on_count": 1237,
+    "off_count": 213,
+    "estimated_background_on": 42.6,
+    "runs": [
+      {
+        "obs_id": 33787,
+        "date": "2006-07-29",
+        "on_count": 100,
+        "off_count": 40,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 1.07151930523761,
+        "tstart_s": 175897474.0,
+        "tstop_s": 175899163.0
+      },
+      {
+        "obs_id": 33788,
+        "date": "2006-07-29",
+        "on_count": 204,
+        "off_count": 15,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.707945784384138,
+        "tstart_s": 175899293.0,
+        "tstop_s": 175900982.0
+      },
+      {
+        "obs_id": 33789,
+        "date": "2006-07-29",
+        "on_count": 241,
+        "off_count": 15,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.537031796370253,
+        "tstart_s": 175901110.0,
+        "tstop_s": 175902798.0
+      },
+      {
+        "obs_id": 33790,
+        "date": "2006-07-29",
+        "on_count": 157,
+        "off_count": 10,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.407380277804113,
+        "tstart_s": 175902930.0,
+        "tstop_s": 175904620.0
+      },
+      {
+        "obs_id": 33791,
+        "date": "2006-07-29",
+        "on_count": 98,
+        "off_count": 10,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.331131121482591,
+        "tstart_s": 175904751.0,
+        "tstop_s": 175906440.0
+      },
+      {
+        "obs_id": 33792,
+        "date": "2006-07-29",
+        "on_count": 91,
+        "off_count": 11,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.309029543251359,
+        "tstart_s": 175906576.0,
+        "tstop_s": 175908264.0
+      },
+      {
+        "obs_id": 33793,
+        "date": "2006-07-29",
+        "on_count": 30,
+        "off_count": 9,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.288403150312661,
+        "tstart_s": 175908409.0,
+        "tstop_s": 175910098.0
+      },
+      {
+        "obs_id": 33794,
+        "date": "2006-07-30",
+        "on_count": 54,
+        "off_count": 7,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.251188643150958,
+        "tstart_s": 175910705.0,
+        "tstop_s": 175912393.0
+      },
+      {
+        "obs_id": 33795,
+        "date": "2006-07-30",
+        "on_count": 42,
+        "off_count": 7,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.251188643150958,
+        "tstart_s": 175912554.0,
+        "tstop_s": 175914243.0
+      },
+      {
+        "obs_id": 33796,
+        "date": "2006-07-30",
+        "on_count": 62,
+        "off_count": 4,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.288403150312661,
+        "tstart_s": 175914378.0,
+        "tstop_s": 175916067.0
+      },
+      {
+        "obs_id": 33797,
+        "date": "2006-07-30",
+        "on_count": 42,
+        "off_count": 6,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.309029543251359,
+        "tstart_s": 175916208.0,
+        "tstop_s": 175917897.0
+      },
+      {
+        "obs_id": 33798,
+        "date": "2006-07-30",
+        "on_count": 44,
+        "off_count": 17,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.380189396320561,
+        "tstart_s": 175918038.0,
+        "tstop_s": 175919727.0
+      },
+      {
+        "obs_id": 33799,
+        "date": "2006-07-30",
+        "on_count": 29,
+        "off_count": 10,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.436515832240166,
+        "tstart_s": 175919876.0,
+        "tstop_s": 175921565.0
+      },
+      {
+        "obs_id": 33800,
+        "date": "2006-07-30",
+        "on_count": 21,
+        "off_count": 20,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.537031796370253,
+        "tstart_s": 175921691.0,
+        "tstop_s": 175923380.0
+      },
+      {
+        "obs_id": 33801,
+        "date": "2006-07-30",
+        "on_count": 22,
+        "off_count": 32,
+        "off_to_on_scale": 0.2,
+        "safe_threshold_TeV": 0.812830516164099,
+        "tstart_s": 175923515.0,
+        "tstop_s": 175925204.0
+      }
+    ]
+  },
+  "aperture_sensitivity": [
+    {
+      "radius_deg": 0.08,
+      "energy_min_TeV": 1.07151930523761,
+      "energy_max_TeV": 4.0,
+      "within_run_rank_association": -0.011731358669770387,
+      "permutation_p_two_sided": 0.7176411794102948,
+      "permutation_count": 2000,
+      "seed": 2155304,
+      "on_count": 1009,
+      "off_count": 117,
+      "estimated_background_on": 23.400000000000002,
+      "runs": [
+        {
+          "obs_id": 33787,
+          "date": "2006-07-29",
+          "on_count": 75,
+          "off_count": 22,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 1.07151930523761,
+          "tstart_s": 175897474.0,
+          "tstop_s": 175899163.0
+        },
+        {
+          "obs_id": 33788,
+          "date": "2006-07-29",
+          "on_count": 168,
+          "off_count": 9,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.707945784384138,
+          "tstart_s": 175899293.0,
+          "tstop_s": 175900982.0
+        },
+        {
+          "obs_id": 33789,
+          "date": "2006-07-29",
+          "on_count": 184,
+          "off_count": 6,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.537031796370253,
+          "tstart_s": 175901110.0,
+          "tstop_s": 175902798.0
+        },
+        {
+          "obs_id": 33790,
+          "date": "2006-07-29",
+          "on_count": 133,
+          "off_count": 8,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.407380277804113,
+          "tstart_s": 175902930.0,
+          "tstop_s": 175904620.0
+        },
+        {
+          "obs_id": 33791,
+          "date": "2006-07-29",
+          "on_count": 84,
+          "off_count": 4,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.331131121482591,
+          "tstart_s": 175904751.0,
+          "tstop_s": 175906440.0
+        },
+        {
+          "obs_id": 33792,
+          "date": "2006-07-29",
+          "on_count": 82,
+          "off_count": 6,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.309029543251359,
+          "tstart_s": 175906576.0,
+          "tstop_s": 175908264.0
+        },
+        {
+          "obs_id": 33793,
+          "date": "2006-07-29",
+          "on_count": 26,
+          "off_count": 5,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.288403150312661,
+          "tstart_s": 175908409.0,
+          "tstop_s": 175910098.0
+        },
+        {
+          "obs_id": 33794,
+          "date": "2006-07-30",
+          "on_count": 40,
+          "off_count": 3,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.251188643150958,
+          "tstart_s": 175910705.0,
+          "tstop_s": 175912393.0
+        },
+        {
+          "obs_id": 33795,
+          "date": "2006-07-30",
+          "on_count": 35,
+          "off_count": 4,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.251188643150958,
+          "tstart_s": 175912554.0,
+          "tstop_s": 175914243.0
+        },
+        {
+          "obs_id": 33796,
+          "date": "2006-07-30",
+          "on_count": 58,
+          "off_count": 2,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.288403150312661,
+          "tstart_s": 175914378.0,
+          "tstop_s": 175916067.0
+        },
+        {
+          "obs_id": 33797,
+          "date": "2006-07-30",
+          "on_count": 32,
+          "off_count": 3,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.309029543251359,
+          "tstart_s": 175916208.0,
+          "tstop_s": 175917897.0
+        },
+        {
+          "obs_id": 33798,
+          "date": "2006-07-30",
+          "on_count": 39,
+          "off_count": 15,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.380189396320561,
+          "tstart_s": 175918038.0,
+          "tstop_s": 175919727.0
+        },
+        {
+          "obs_id": 33799,
+          "date": "2006-07-30",
+          "on_count": 20,
+          "off_count": 6,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.436515832240166,
+          "tstart_s": 175919876.0,
+          "tstop_s": 175921565.0
+        },
+        {
+          "obs_id": 33800,
+          "date": "2006-07-30",
+          "on_count": 15,
+          "off_count": 8,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.537031796370253,
+          "tstart_s": 175921691.0,
+          "tstop_s": 175923380.0
+        },
+        {
+          "obs_id": 33801,
+          "date": "2006-07-30",
+          "on_count": 18,
+          "off_count": 16,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.812830516164099,
+          "tstart_s": 175923515.0,
+          "tstop_s": 175925204.0
+        }
+      ]
+    },
+    {
+      "radius_deg": 0.14,
+      "energy_min_TeV": 1.07151930523761,
+      "energy_max_TeV": 4.0,
+      "within_run_rank_association": 0.019442579402942674,
+      "permutation_p_two_sided": 0.4577711144427786,
+      "permutation_count": 2000,
+      "seed": 2155304,
+      "on_count": 1385,
+      "off_count": 329,
+      "estimated_background_on": 65.8,
+      "runs": [
+        {
+          "obs_id": 33787,
+          "date": "2006-07-29",
+          "on_count": 119,
+          "off_count": 69,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 1.07151930523761,
+          "tstart_s": 175897474.0,
+          "tstop_s": 175899163.0
+        },
+        {
+          "obs_id": 33788,
+          "date": "2006-07-29",
+          "on_count": 233,
+          "off_count": 26,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.707945784384138,
+          "tstart_s": 175899293.0,
+          "tstop_s": 175900982.0
+        },
+        {
+          "obs_id": 33789,
+          "date": "2006-07-29",
+          "on_count": 261,
+          "off_count": 25,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.537031796370253,
+          "tstart_s": 175901110.0,
+          "tstop_s": 175902798.0
+        },
+        {
+          "obs_id": 33790,
+          "date": "2006-07-29",
+          "on_count": 176,
+          "off_count": 21,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.407380277804113,
+          "tstart_s": 175902930.0,
+          "tstop_s": 175904620.0
+        },
+        {
+          "obs_id": 33791,
+          "date": "2006-07-29",
+          "on_count": 113,
+          "off_count": 15,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.331131121482591,
+          "tstart_s": 175904751.0,
+          "tstop_s": 175906440.0
+        },
+        {
+          "obs_id": 33792,
+          "date": "2006-07-29",
+          "on_count": 102,
+          "off_count": 13,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.309029543251359,
+          "tstart_s": 175906576.0,
+          "tstop_s": 175908264.0
+        },
+        {
+          "obs_id": 33793,
+          "date": "2006-07-29",
+          "on_count": 34,
+          "off_count": 10,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.288403150312661,
+          "tstart_s": 175908409.0,
+          "tstop_s": 175910098.0
+        },
+        {
+          "obs_id": 33794,
+          "date": "2006-07-30",
+          "on_count": 57,
+          "off_count": 11,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.251188643150958,
+          "tstart_s": 175910705.0,
+          "tstop_s": 175912393.0
+        },
+        {
+          "obs_id": 33795,
+          "date": "2006-07-30",
+          "on_count": 47,
+          "off_count": 11,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.251188643150958,
+          "tstart_s": 175912554.0,
+          "tstop_s": 175914243.0
+        },
+        {
+          "obs_id": 33796,
+          "date": "2006-07-30",
+          "on_count": 69,
+          "off_count": 8,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.288403150312661,
+          "tstart_s": 175914378.0,
+          "tstop_s": 175916067.0
+        },
+        {
+          "obs_id": 33797,
+          "date": "2006-07-30",
+          "on_count": 45,
+          "off_count": 10,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.309029543251359,
+          "tstart_s": 175916208.0,
+          "tstop_s": 175917897.0
+        },
+        {
+          "obs_id": 33798,
+          "date": "2006-07-30",
+          "on_count": 46,
+          "off_count": 19,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.380189396320561,
+          "tstart_s": 175918038.0,
+          "tstop_s": 175919727.0
+        },
+        {
+          "obs_id": 33799,
+          "date": "2006-07-30",
+          "on_count": 33,
+          "off_count": 18,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.436515832240166,
+          "tstart_s": 175919876.0,
+          "tstop_s": 175921565.0
+        },
+        {
+          "obs_id": 33800,
+          "date": "2006-07-30",
+          "on_count": 23,
+          "off_count": 27,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.537031796370253,
+          "tstart_s": 175921691.0,
+          "tstop_s": 175923380.0
+        },
+        {
+          "obs_id": 33801,
+          "date": "2006-07-30",
+          "on_count": 27,
+          "off_count": 46,
+          "off_to_on_scale": 0.2,
+          "safe_threshold_TeV": 0.812830516164099,
+          "tstart_s": 175923515.0,
+          "tstop_s": 175925204.0
+        }
+      ]
+    }
+  ],
+  "method": "Within-run centered rank correlation between arrival time and reconstructed energy; shuffle energy labels within each run",
+  "data_are_original_published_LIV_sample": false,
+  "propagation_delay_fitted_to_public_data": false,
+  "limitations": [
+    "Public runs are a later flare and use different event reconstruction from the 2011 analysis",
+    "Permutation null assumes energy and time independent within runs; detector changes and source evolution can violate it",
+    "Run stratification removes between-run energy/acceptance differences, not within-run response changes",
+    "Safe energy threshold is common to all runs; finite resolution and effective area are not forward folded",
+    "Background is estimated with reflected apertures; event ranks are not background subtracted",
+    "Association statistic is neither a calibrated lag estimate nor a propagation-only test",
+    "A non-detection of rank association does not exclude an E-squared lag; this statistic has limited power",
+    "Aperture checks are sensitivity diagnostics, not independent replications",
+    "No new confidence bound or joint cross-source confidence interval is inferred"
+  ]
+}

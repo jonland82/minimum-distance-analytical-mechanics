@@ -1,0 +1,221 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}[proposition]{Theorem}
+\newcommand{\R}{\mathbb R}
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{1em}
+\title{\vspace{-1.5em}Consequences of Minimum Distance\\in Mathematics and Physics}
+\author{J. R. Landers}
+\date{November 13, 2026}
+\begin{document}
+\maketitle
+\vspace{-1.2em}
+
+A right triangle whose hypotenuse is the shortest possible length is a small object with a large problem: both its legs must be shorter still. The contradiction is elementary, but it asks a serious question. Which familiar constructions survive if geometry has a lower limit? This exposition follows a route from geometry to dynamics to measurement. Elementary geometric restrictions lead to classical lattice waves; a positivity argument bounds their dispersion; and an established astronomical strategy turns that bound into a conditional test. The aim is to connect these ideas while distinguishing what the cutoff forces from what the chosen physics supplies.
+
+\section{What is being cut off?}
+The Planck length is the combination
+\begin{equation}
+\ell_P=\sqrt{\frac{\hbar G}{c^3}}\simeq1.616\times10^{-35}\ \mathrm{m},
+\end{equation}
+where $\hbar$ is the reduced Planck constant, $G$ is Newton's gravitational constant, and $c$ is the low-energy speed of light. It is a natural scale for quantum-gravity questions, but it is not an experimentally established smallest distance. Moreover, a limit on measurement precision need not be a gap between possible positions; minimal-length proposals implement different mathematical structures \cite{hossenfelder}.
+
+Here we impose the stronger, explicitly conditional hypothesis. Let $(X,d)$ be a metric space of physical spatial positions, with distance function $d$, and suppose there is a constant $k>0$ such that
+\begin{equation}\label{gap}
+x\ne y\quad\Longrightarrow\quad d(x,y)\geq k.
+\end{equation}
+One may set $k=\ell_P$, but none of the geometric deductions needs that identification. Condition \eqref{gap} is called uniform discreteness. It specifies neither a lattice nor integer multiples of $k$, and it does not prescribe motion. It also excludes alternatives such as Kempf's sampling-theoretic construction, where continuous fields have a finite density of independent degrees of freedom \cite{kempf}. Throughout, our distances are spatial distances in a chosen description, not Lorentzian spacetime intervals.
+
+\section{The triangles that remain}
+To retain a Euclidean notion of shape, consider triples of distinct points whose mutual distances agree with the side lengths of an ordinary Euclidean triangle. Its vertices are physical positions; the continuum of points along its drawn edges is not assumed to belong to $X$. Requiring all those edge points would already contradict \eqref{gap}.
+
+\begin{proposition}\label{tri}
+An admissible Euclidean right triangle has hypotenuse $h\geq\sqrt{2}\,k$. If $\theta$ is either acute angle, then
+\begin{equation}\label{angles}
+\arcsin(k/h)\leq\theta\leq\frac{\pi}{2}-\arcsin(k/h).
+\end{equation}
+\end{proposition}
+\begin{proof}
+Write its legs as $a=h\sin\theta$ and $b=h\cos\theta$. The cutoff requires $a,b\geq k$, so
+\begin{equation}
+h^2=a^2+b^2\geq2k^2.
+\end{equation}
+The inequalities $\sin\theta\geq k/h$ and $\cos\theta\geq k/h$ give \eqref{angles}.
+\end{proof}
+In particular, no such right triangle has hypotenuse $k$. At the threshold $h=\sqrt{2}k$, only the isosceles right shape is permitted by the side cutoff. These are necessary conditions: a particular space $X$ may fail to contain even the permitted triples.
+
+There is a precise way to count the shapes lost, provided we specify a probability measure. Fix $h$ and sample $\theta$ uniformly from $(0,\pi/2)$. The allowed angular interval has length $\pi/2-2\arcsin(k/h)$, whenever it exists. Thus the fraction excluded by the side cutoff alone is
+\begin{equation}\label{fraction}
+P_{\mathrm{exc}}(h,k)=
+\begin{cases}
+1,&0<h<\sqrt{2}k,\\[2pt]
+\displaystyle\frac{4}{\pi}\arcsin(k/h),&h\geq\sqrt{2}k.
+\end{cases}
+\end{equation}
+The single surviving angle at equality has probability zero. For $h=2k$, two thirds of the sampled shapes are excluded; for $h=10k$, the fraction is approximately $0.128$. Expanding at $k/h=0$ gives
+\begin{equation}
+P_{\mathrm{exc}}(h,k)=\frac{4k}{\pi h}
++\frac{2k^3}{3\pi h^3}+O\!\left((k/h)^5\right).
+\end{equation}
+Large triangles therefore recover most shapes under this measure, but arbitrarily thin right triangles remain forbidden. There is no measure-independent ``fraction of all triangles'': choosing sizes and angles differently changes the answer.
+
+\section{Midpoints and motion}
+The difficulty with a shortest distance reaches beyond triangles. If a segment of length $L\geq k$ admits $n$ successive rounds of exact Euclidean bisection, its smallest resulting segments have length $L/2^n$. Hence
+\begin{equation}\label{bisection}
+\frac{L}{2^n}\geq k
+\quad\Longrightarrow\quad
+n\leq\left\lfloor\log_2(L/k)\right\rfloor.
+\end{equation}
+This is an upper bound on permitted rounds, not a guarantee that the earlier midpoints exist. Exact, indefinitely repeatable midpoint construction is incompatible with a positive distance gap.
+
+The next observation is a standard connectedness argument, stated here to make the cost of the distance gap explicit.
+\begin{proposition}\label{motion}
+Under \eqref{gap}, every continuous map $\gamma:[0,T]\to X$, where $T>0$, is constant.
+\end{proposition}
+\begin{proof}
+The open metric ball of radius $k/2$ about any $x\in X$ contains only $x$. Thus every singleton is open, and $X$ has the discrete topology. A continuous image of the connected interval $[0,T]$ is connected, whereas a discrete space has no connected subsets with more than one point.
+\end{proof}
+Consequently, ordinary continuous point trajectories cannot describe nontrivial motion in this geometry. This does not preclude evolving fields or quantum amplitudes on discrete positions: their values may change continuously with time even though an individual position-valued continuous path cannot. That distinction provides a route from a mathematical obstruction to a dynamical model.
+
+\section{From differences to dispersion}
+Choose the particular space $X=k\mathbb Z$, so its positions are $x_n=nk$ for integers $n$. Let $u_n(t)$ be a real scalar wave amplitude at site $n$ and continuous time $t$. Suppose neighboring sites interact according to
+\begin{equation}\label{wave}
+\ddot u_n=c^2\frac{u_{n+1}-2u_n+u_{n-1}}{k^2}.
+\end{equation}
+Dots denote time derivatives. This is the classical harmonic-chain wave equation; general finite-range chains and their dispersive behavior are studied, for example, by Mielke and Patz \cite{mielke}. The lattice and evolution rule are additional assumptions, not consequences of \eqref{gap}. Their long-wavelength limit is the usual wave equation.
+
+Insert a plane wave $u_n(t)=\operatorname{Re}\{A e^{i(qnk-\omega t)}\}$, where $A$ is a complex amplitude, $q$ the wave number, and $\omega$ the angular frequency. Equation \eqref{wave} yields
+\begin{align}
+-\omega^2&=\frac{c^2}{k^2}\bigl(e^{iqk}-2+e^{-iqk}\bigr),\\
+\omega^2&=\frac{4c^2}{k^2}\sin^2(qk/2)
+=c^2q^2-\frac{c^2k^2q^4}{12}+O(c^2k^4q^6).
+\label{dispersion}
+\end{align}
+The independent wave numbers lie in $-\pi/k\leq q\leq\pi/k$: adding $2\pi/k$ gives the same site values. The continuum derivative has become a finite difference, and its Fourier symbol $-q^2$ has become $-4\sin^2(qk/2)/k^2$. This change in elementary mathematics is what produces dispersion.
+
+For the positive-frequency, right-moving branch $0<q<\pi/k$, a narrow wave packet has group velocity
+\begin{equation}\label{velocity}
+v_g=\frac{d\omega}{dq}=c\cos(qk/2)
+=c\left[1-\frac{k^2q^2}{8}+O((qk)^4)\right].
+\end{equation}
+Shorter wavelengths propagate more slowly. The usual speed $c$ reappears as $qk\to0$. A spatial lattice selects a preferred rest frame; extending it to three dimensions also generally introduces directional dependence. This scalar example is an illustrative propagation model, not a complete electromagnetic or relativistic theory. Before considering a measurement, we ask whether the slowdown is merely an artifact of coupling each site to its immediate neighbors.
+
+\section{A slowdown shared by a class of models}
+Keep the positions $x_n=nk$, but allow symmetric interactions out to $R$ lattice steps:
+\begin{equation}\label{generalwave}
+\ddot u_n=\sum_{r=1}^{R}g_r
+\bigl(u_{n+r}-2u_n+u_{n-r}\bigr),\qquad g_r\geq0.
+\end{equation}
+Here $R$ is a finite positive integer, $r$ counts lattice steps, and $g_r$ is a coupling with units of inverse time squared. Assume at least one $g_r$ is positive. These are linear, translation-invariant interactions, with equal couplings to the left and right. Nonnegative couplings describe ordinary restoring interactions.
+
+The same operator appears in numerical differentiation. There, positivity obstructs cancellation of the fourth-degree term: Davydov and Schaback prove this for much more general point configurations \cite[\S4.3, Proposition 17]{davydov}. Below we express that familiar obstruction as a sharp bound on the leading wave-speed correction, and also bound the group speed at every differentiable wave number.
+
+For \eqref{generalwave}, define the long-wavelength speed $c$ and effective squared length $\Lambda^2$ by
+\begin{equation}\label{moments}
+c^2=k^2\sum_{r=1}^{R}g_r r^2,
+\qquad
+\Lambda^2=k^2\frac{\sum_{r=1}^{R}g_r r^4}{\sum_{r=1}^{R}g_r r^2}.
+\end{equation}
+\Needspace{9\baselineskip}
+\begin{theorem}\label{universal}
+For the interactions in \eqref{generalwave}, with $c$ and $\Lambda$ defined by \eqref{moments}, the following bounds hold.
+The positive-frequency dispersion branch has group speed $|v_g|\leq c$ wherever differentiable. As $q\to0^+$,
+\begin{equation}\label{universalvelocity}
+v_g(q)=c\left[1-\frac{\Lambda^2q^2}{8}+O(q^4)\right],
+\qquad \Lambda^2\geq k^2.
+\end{equation}
+Equality $\Lambda^2=k^2$ holds exactly when all couplings beyond nearest neighbors vanish.
+\end{theorem}
+\begin{proof}
+The same plane-wave substitution gives
+\begin{align}
+\omega^2(q)&=4\sum_{r=1}^{R}g_r\sin^2(rqk/2)\label{generaldispersion}\\
+&=c^2q^2\left[1-\frac{\Lambda^2q^2}{12}+O(q^4)\right].
+\end{align}
+All frequencies are real because the summands in \eqref{generaldispersion} are nonnegative. Taking the positive square root for $q>0$ yields $\omega=cq[1-\Lambda^2q^2/24+O(q^4)]$; differentiating gives \eqref{universalvelocity}. The expansion is for each fixed finite-range model.
+
+To bound its coefficient, set $w_r=g_r r^2/\sum_s g_s s^2$. These weights are nonnegative and sum to one, so
+\begin{equation}\label{momentbound}
+\Lambda^2=k^2\sum_{r=1}^{R}w_r r^2\geq k^2.
+\end{equation}
+Equality requires every nonzero weight to have $r=1$. Finally, let the vector $\mathbf f(q)$ have components $f_r(q)=2\sqrt{g_r}\sin(rqk/2)$. Since $\omega=\|\mathbf f\|$, Cauchy--Schwarz gives, wherever the norm is differentiable,
+\begin{equation}
+|v_g|\leq\|\mathbf f'(q)\|
+=\sqrt{\sum_{r=1}^{R}g_r r^2k^2\cos^2(rqk/2)}\leq c.\qedhere
+\end{equation}
+\end{proof}
+The coefficient has a simple meaning: $\Lambda^2$ is a weighted average of squared interaction distances. Every such distance is at least $k$, so the leading slowdown cannot be smaller than in the nearest-neighbor model. Longer-range positive interactions cannot cancel it. The speed bound concerns group velocity; it does not assert a strict causal front for the lattice evolution.
+
+The positivity assumption is essential, even if we retain real frequencies. The classical fourth-order five-point second-derivative formula \cite[Eq.~3.4.23]{nist} supplies a counterexample: allow a negative second-neighbor coupling and choose
+\begin{equation}
+g_1=\frac{4c^2}{3k^2},\qquad
+g_2=-\frac{c^2}{12k^2},\qquad g_r=0\ (r>2).
+\end{equation}
+Then $k^2(g_1+4g_2)=c^2$ but $g_1+16g_2=0$, so the $q^4$ term in $\omega^2$ cancels. Nevertheless, with $s=\sin(qk/2)$,
+\begin{equation}
+\omega^2(q)=\frac{4c^2}{k^2}s^2\left(1+\frac{s^2}{3}\right)\geq0.
+\end{equation}
+Thus the nonzero-frequency modes remain oscillatory, yet the quadratic correction to group velocity disappears. A standard device for improving numerical accuracy becomes, when interpreted as physical dynamics, an example of how the predicted signal can change. The cutoff alone does not determine it.
+
+\section{An arrival-time experiment}
+Suppose photon wave packets inherit the lattice dispersion along their propagation direction, with energy $E=\hbar\omega$. This is the extra phenomenological hypothesis required to connect the model to light. In the nearest-neighbor case, define the energy scale $E_k=\hbar c/k$; equation \eqref{velocity} becomes exactly
+\begin{equation}
+v_g(E)=c\sqrt{1-\frac{E^2}{4E_k^2}}
+=c\left[1-\frac{E^2}{8E_k^2}+O\!\left((E/E_k)^4\right)\right].
+\end{equation}
+For two simultaneously emitted packets of energies $E_h>E_l$, traveling a fixed distance $L$ in a static setting, the leading arrival-time difference is
+\begin{equation}\label{delay}
+\Delta t=\frac{L}{v_g(E_h)}-\frac{L}{v_g(E_l)}
+\simeq\frac{L}{8c}\frac{E_h^2-E_l^2}{E_k^2}
+=\frac{Lk^2(E_h^2-E_l^2)}{8\hbar^2c^3}.
+\end{equation}
+For the full positive-coupling class, $q=E/(\hbar c)+O(E^3)$ at low energy, so Theorem~\ref{universal} replaces $k^2$ in the leading delay by $\Lambda^2$:
+\begin{equation}\label{classdelay}
+\Delta t\simeq\frac{L\Lambda^2(E_h^2-E_l^2)}{8\hbar^2c^3},
+\qquad \Lambda^2\geq k^2.
+\end{equation}
+The inequality bounds the leading coefficient, not every finite-energy delay. It is sharp: nearest-neighbor interactions attain it. The prediction is therefore robust across this class even without knowing the individual couplings.
+
+The observable signature is a delay quadratic in energy and increasing with propagation distance. Amelino-Camelia and collaborators proposed gamma-ray bursts as probes of energy-dependent light propagation in 1998 \cite{amelino}; their short features, energetic photons, and long paths make small speed differences accumulate. Fermi observations have since constrained both linear and quadratic energy dependence \cite{vasileiou}. A practical analysis compares energy-resolved light curves across sources and distances, fitting propagation delays together with intrinsic emission lags and instrumental timing effects. One delayed energetic photon is insufficient to establish the effect.
+
+For cosmological sources, $L/c$ in \eqref{delay} must be replaced by an expansion-weighted integral. If the same local law holds with constant physical $k$ in the cosmological rest frame and photons undergo the usual leading-order redshift, the prediction is
+\begin{equation}\label{cosmo}
+\Delta t_{\mathrm{prop}}\simeq
+\frac{E_{h,0}^2-E_{l,0}^2}{8E_k^2}
+\int_0^{z_s}\frac{(1+z)^2}{H(z)}\,dz.
+\end{equation}
+Here $z_s$ is source redshift, $H(z)$ the cosmic expansion rate, and the subscript $0$ denotes observed energies. The integral accounts for the higher photon energies earlier in the journey. For the full class, replace $E_k$ by $E_\Lambda=\hbar c/\Lambda$, assuming $\Lambda$ is constant in that frame. This cosmological embedding is another assumption, rather than a result about the static lattice itself.
+
+The scale of the prediction matters. For $k=\ell_P$, one has $E_k\simeq1.22\times10^{28}\ \mathrm{eV}$. Taking $E_h=10^{12}\ \mathrm{eV}$, negligible $E_l$, and $L/c=10^9$ years in the static estimate gives
+\begin{equation}
+\Delta t\simeq\frac{3.16\times10^{16}\ \mathrm{s}}{8}
+\left(\frac{10^{12}}{1.22\times10^{28}}\right)^2
+\simeq2.7\times10^{-17}\ \mathrm{s}.
+\end{equation}
+Such a delay is far below the temporal resolving power of an astronomical burst measurement. The nearest-neighbor model therefore illustrates a testable dependence without promising present sensitivity to Planck-length spacing. The theorem gives a minimum leading coefficient, not a universal upper bound: longer interaction distances can make $\Lambda$ larger than $k$. In the low-energy regime, if an analysis limits the propagation delay to $\tau>0$, \eqref{classdelay} gives the class-wide conditional bound
+\begin{equation}
+k\lesssim\sqrt{\frac{8\hbar^2c^3\tau}{L(E_h^2-E_l^2)}}.
+\end{equation}
+
+A minimum distance restricts shapes and subdivision, and rules out ordinary continuous point trajectories. Evolving wave amplitudes remain possible; on a lattice with positive, symmetric, finite-range interactions, their group speed is bounded and their leading low-energy slowdown has a sharp minimum coefficient. Arrival-time measurements can constrain that entire class, subject to the photon and cosmological assumptions. The negative-coupling example marks the boundary: geometry supplies restrictions, while dynamics decides which restrictions become observable.
+
+\begin{thebibliography}{9}
+\small
+\setlength{\itemsep}{2pt}
+\setlength{\parskip}{0pt}
+\bibitem{hossenfelder} S. Hossenfelder, Minimal length scale scenarios for quantum gravity, \emph{Living Reviews in Relativity} \textbf{16} (2013), 2. \href{https://doi.org/10.12942/lrr-2013-2}{doi:10.12942/lrr-2013-2}; \href{https://arxiv.org/abs/1203.6191}{arXiv:1203.6191}.
+\bibitem{kempf} A. Kempf, A generalized Shannon sampling theorem, fields at the Planck scale as bandlimited signals, \emph{Physical Review Letters} \textbf{85} (2000), 2873--2876. \href{https://doi.org/10.1103/PhysRevLett.85.2873}{doi:10.1103/PhysRevLett.85.2873}.
+\bibitem{mielke} A. Mielke and C. Patz, Uniform asymptotic expansions for the infinite harmonic chain, \emph{Zeitschrift f\"ur Analysis und ihre Anwendungen} \textbf{36} (2017), 437--475. \href{https://doi.org/10.4171/ZAA/1596}{doi:10.4171/ZAA/1596}.
+\bibitem{davydov} O. Davydov and R. Schaback, Minimal numerical differentiation formulas, \emph{Numerische Mathematik} \textbf{140} (2018), 555--592. \href{https://doi.org/10.1007/s00211-018-0973-3}{doi:10.1007/s00211-018-0973-3}.
+\bibitem{nist} NIST Digital Library of Mathematical Functions, \S3.4, Differentiation, Eq.~3.4.23. \url{https://dlmf.nist.gov/3.4.E23}.
+\bibitem{amelino} G. Amelino-Camelia, J. Ellis, N. E. Mavromatos, D. V. Nanopoulos, and S. Sarkar, Tests of quantum gravity from observations of gamma-ray bursts, \emph{Nature} \textbf{393} (1998), 763--765. \href{https://doi.org/10.1038/31647}{doi:10.1038/31647}.
+\bibitem{vasileiou} V. Vasileiou et al., Constraints on Lorentz invariance violation from Fermi-Large Area Telescope observations of gamma-ray bursts, \emph{Physical Review D} \textbf{87} (2013), 122001. \href{https://doi.org/10.1103/PhysRevD.87.122001}{doi:10.1103/PhysRevD.87.122001}; \href{https://arxiv.org/abs/1305.3463}{arXiv:1305.3463}.
+\end{thebibliography}
+\end{document}

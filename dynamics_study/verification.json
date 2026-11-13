@@ -1,0 +1,110 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "test": "periodic_matrix_spectrum",
+      "range": 1,
+      "max_mismatch": 3.552713678800501e-15,
+      "smallest_eigenvalue": -1.121217527550121e-17
+    },
+    {
+      "test": "periodic_matrix_spectrum",
+      "range": 2,
+      "max_mismatch": 4.440892098500626e-15,
+      "smallest_eigenvalue": 4.2638432009413206e-16
+    },
+    {
+      "test": "periodic_matrix_spectrum",
+      "range": 4,
+      "max_mismatch": 8.881784197001252e-15,
+      "smallest_eigenvalue": 2.192681168357311e-15
+    },
+    {
+      "test": "periodic_matrix_spectrum",
+      "range": 8,
+      "max_mismatch": 7.993605777301127e-15,
+      "smallest_eigenvalue": -4.855870480022348e-17
+    },
+    {
+      "test": "periodic_matrix_spectrum",
+      "range": 16,
+      "max_mismatch": 1.2434497875801753e-14,
+      "smallest_eigenvalue": -6.69612115380638e-16
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 1,
+      "family": "centered",
+      "max_mismatch": 8.597567102697212e-12
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 2,
+      "family": "centered",
+      "max_mismatch": 1.5453943680299176e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 3,
+      "family": "centered",
+      "max_mismatch": 1.8742785101721893e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 4,
+      "family": "centered",
+      "max_mismatch": 1.8806400881032914e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 6,
+      "family": "centered",
+      "max_mismatch": 3.380429269839169e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 2,
+      "family": "band_optimized",
+      "max_mismatch": 1.7729151480239125e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 3,
+      "family": "band_optimized",
+      "max_mismatch": 1.2926326675710698e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 4,
+      "family": "band_optimized",
+      "max_mismatch": 1.2462808562929695e-11
+    },
+    {
+      "test": "finite_difference_of_independent_cosine_symbol",
+      "range": 6,
+      "family": "band_optimized",
+      "max_mismatch": 2.7445823391758495e-11
+    },
+    {
+      "test": "leading_group_error_coefficient",
+      "range": 1,
+      "measured_to_predicted_ratio": "0.9999979166684027770027283898946902656539829172418714941169899617613602171684516"
+    },
+    {
+      "test": "leading_group_error_coefficient",
+      "range": 2,
+      "measured_to_predicted_ratio": "0.99998750012499862766202304966475682627301578943978735358825080235110526729612591"
+    },
+    {
+      "test": "leading_group_error_coefficient",
+      "range": 4,
+      "measured_to_predicted_ratio": "0.99997222259920304236402213710643895058468900071976907309061291604823841287281127"
+    },
+    {
+      "test": "leading_group_error_coefficient",
+      "range": 8,
+      "measured_to_predicted_ratio": "0.99994000177269294781979625300337783405353186943629390841352855191704205035727091"
+    }
+  ],
+  "note": "Complementary mathematical/numerical checks; no physical validation inferred"
+}

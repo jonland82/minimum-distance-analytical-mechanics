@@ -1,0 +1,76 @@
+{
+  "independent_event_fit": false,
+  "method": "Algebraic translation of published Table I confidence intervals; no new statistical inference",
+  "source": "https://doi.org/10.1103/PhysRevLett.133.071501",
+  "formulas": {
+    "EQG2": "sqrt(12) hbar c / Lambda",
+    "eta2": "1e-15 (Lambda/lP)^2 / 12",
+    "delay": "K2 Lambda^2 (Eh^2-El^2) / (8 (hbar c)^2)"
+  },
+  "assumptions": [
+    "Quadratic low-energy regime",
+    "Photon group velocity follows the paper",
+    "Constant physical Lambda in cosmological frame",
+    "Same source and detector assumptions as the published intervals",
+    "For general finite-range models the expansion must hold throughout the measured band"
+  ],
+  "constants": {
+    "hbar_c_GeV_m": 1.9732698045930252e-16,
+    "Planck_length_m": 1.6162550244237053e-35,
+    "Planck_energy_GeV": 1.2208901285838959e+19,
+    "redshift": 0.151,
+    "H0_km_s_Mpc": 67.36,
+    "Omega_m": 0.315,
+    "K2_s": 7.70778393486344e+16
+  },
+  "translated_published_results": [
+    {
+      "method": "CCF",
+      "eta2_best_fit": 0.25,
+      "eta2_interval_95": [
+        -0.47,
+        0.66
+      ],
+      "published_EQG2_lower_GeV": 470000000000.0,
+      "Lambda_upper_m_from_eta": 1.4383761680270217e-27,
+      "Lambda_upper_m_from_rounded_EQG": 1.4543844930198425e-27,
+      "Lambda_upper_in_Planck_lengths": 88994381.84514795,
+      "delay_1TeV_vs_0_upper_s": 0.5119311566904551,
+      "delay_7TeV_vs_0_upper_s": 25.084626677832297
+    },
+    {
+      "method": "ML MINOS",
+      "eta2_best_fit": 0.01,
+      "eta2_interval_95": [
+        -0.31,
+        0.32
+      ],
+      "published_EQG2_lower_GeV": 690000000000.0,
+      "Lambda_upper_m_from_eta": 1.0015566068507316e-27,
+      "Lambda_upper_m_from_rounded_EQG": 9.906676981439506e-28,
+      "Lambda_upper_in_Planck_lengths": 61967733.53931867,
+      "delay_1TeV_vs_0_upper_s": 0.24820904566809943,
+      "delay_7TeV_vs_0_upper_s": 12.16224323773687
+    },
+    {
+      "method": "ML calibrated",
+      "eta2_best_fit": null,
+      "eta2_interval_95": [
+        -0.3,
+        0.29
+      ],
+      "published_EQG2_lower_GeV": 720000000000.0,
+      "Lambda_upper_m_from_eta": 9.534534838067642e-28,
+      "Lambda_upper_m_from_rounded_EQG": 9.493898773879527e-28,
+      "Lambda_upper_in_Planck_lengths": 58991524.8150105,
+      "delay_1TeV_vs_0_upper_s": 0.2249394476367151,
+      "delay_7TeV_vs_0_upper_s": 11.022032934199041
+    }
+  ],
+  "Planck_nearest_neighbor": {
+    "eta2": 8.333333333333334e-17,
+    "delay_1TeV_vs_0_s": 6.463777230940088e-17,
+    "delay_7TeV_vs_0_s": 3.1672508431606436e-15,
+    "delay_7TeV_vs_0point2_s": 3.1646653322682672e-15
+  }
+}

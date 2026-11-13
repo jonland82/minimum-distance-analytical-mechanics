@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,graphicx,caption}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks]{hyperref}
+\raggedbottom
+\clubpenalty=10000
+\widowpenalty=10000
+\captionsetup{font=small,hypcap=false}
+\newtheorem{proposition}{Proposition}
+\setlength{\parskip}{3pt}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}
+ {1.5ex plus .5ex minus .2ex}{-1em}{\normalfont\normalsize\bfseries}}
+\makeatother
+\title{How Closely Can a Discrete Space\\Imitate Continuum Waves?}
+\author{J. R. Landers}
+\date{November 13, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+A minimum spatial separation does not uniquely select a wave equation. We compare symmetric finite-range interactions on a fixed lattice, imposing a common long-wavelength speed and nonnegative total wave energy. Positive pair couplings have a sharp limitation: nearest-neighbor interactions maximize the phase speed at every wave number. Signed couplings permit a different outcome. Standard centered finite-difference operators provide globally stable dynamics whose phase and group speeds approach the continuum uniformly on every band strictly below the lattice cutoff. This construction can retain group speed at most the long-wavelength speed. Finite-range interactions nevertheless cannot reproduce exact continuum dispersion on an open interval, and a nonzero-frequency zone-edge mode has zero group speed. Numerical comparisons and a constrained band optimization illustrate both the approximation and its tradeoffs. These are model calculations, not measurements or evidence for discrete physical space.
+\end{abstract}
+
+\section{The question and the model}
+The preceding minimum-distance exposition distinguishes a spatial gap from the dynamics placed upon it. Its positive-coupling lattice model produces a leading quadratic slowdown. We now ask whether that effect is unavoidable once stability, rather than positivity of every pair coupling, is the requirement.
+
+Keep positions $x_n=nk$ and the equation
+\begin{equation}
+ \ddot u_n=\frac{c^2}{k^2}\sum_{r=1}^R a_r
+ (u_{n+r}-2u_n+u_{n-r}),\qquad \sum_{r=1}^R a_r r^2=1.
+\end{equation}
+Here $a_r=g_r k^2/c^2$ are dimensionless and may have either sign. Set $x=qk$ and define
+\begin{equation}\label{symbol}
+ D(x)=4\sum_{r=1}^R a_r\sin^2(rx/2),\qquad
+ \omega(q)=\frac{c}{k}\sqrt{D(qk)}.
+\end{equation}
+The independent wave numbers obey $|x|\leq\pi$. We compare
+\begin{equation}
+ \frac{v_p}{c}=\frac{\sqrt{D(x)}}{x},\qquad
+ \frac{v_g}{c}=\frac{D'(x)}{2\sqrt{D(x)}}\quad (0<x<\pi)
+\end{equation}
+with their continuum values of one. Their limits at zero are one by normalization.
+
+The relevant stability condition is $D(x)\geq0$ for every lattice wave number. Equivalently, the total potential energy is nonnegative. Negative individual pair terms do not automatically imply a negative total energy. Stability here means no exponential growth of normal modes; the acoustic zero mode has its usual uniform translation and velocity solutions. Neither spectral stability nor a group-speed bound asserts a strict causal front or a relativistic theory.
+
+\section{A sharp limitation for positive interactions}
+Suppose $a_r\geq0$ and write $w_r=a_r r^2$, so that $\sum_r w_r=1$. The elementary inequality $|\sin(rt)|\leq r|\sin t|$ gives
+\begin{equation}\label{positive}
+ D(x)=4\sum_r w_r\left(\frac{\sin(rx/2)}{r}\right)^2
+ \leq4\sin^2(x/2)\leq x^2.
+\end{equation}
+Thus the nearest-neighbor rule $a_1=1$ maximizes the phase speed at every $x$. Longer positive interactions cannot improve its phase accuracy anywhere in $0<x\leq\pi$. In particular, for a fixed comparison band $0\leq x\leq X\leq\pi$,
+\begin{equation}
+ \inf_{a_r\geq0}\ \sup_{0\leq x\leq X}
+ \left|\frac{v_p(x)}c-1\right|
+ =1-\frac{\sin(X/2)}{X/2}.
+\end{equation}
+The infimum is attained by nearest neighbors, regardless of the allowed range. This is a phase-speed result; group-speed errors are not ordered pointwise by this argument.
+
+Expansion also recovers the earlier leading coefficient:
+\begin{equation}
+ D(x)=x^2-\frac{\mu_4x^4}{12}+O(x^6),\qquad
+ \mu_4=\sum_r a_r r^4\geq1,
+ \qquad \frac{v_g}{c}=1-\frac{\mu_4x^2}{8}+O(x^4).
+\end{equation}
+For this positive class, $\Lambda^2=k^2\mu_4\geq k^2$. Once signed couplings are admitted, $\mu_4$ can vanish or become negative and must not automatically be interpreted as the square of a real effective length.
+
+\section{A stable family with arbitrarily small band error}
+This question has a constructive answer from standard numerical differentiation \cite{nist,fornberg}. For each range $R$, take the centered coefficients
+\begin{equation}\label{centered}
+ a_r^{(R)}=\frac{2(-1)^{r+1}(R!)^2}{r^2(R-r)!(R+r)!},\qquad 1\leq r\leq R.
+\end{equation}
+For example, $R=1$ gives $(1)$, $R=2$ gives $(4/3,-1/12)$, and $R=3$ gives $(3/2,-3/20,1/90)$. These are familiar finite-difference weights, interpreted here as alternative dynamics rather than as prescriptions for approximating a derivative.
+
+An equivalent form makes their stability transparent. Set $y=\sin^2(x/2)$ and
+\begin{equation}\label{poly}
+ D_R(x)=P_R(y),\qquad
+ P_R(y)=\sum_{m=1}^R b_m y^m,\qquad
+ b_m=\frac{2\,4^m}{m^2\binom{2m}{m}}>0.
+\end{equation}
+The infinite series is $4\arcsin^2\sqrt y=x^2$ for $0\leq x\leq\pi$. Each truncation is a cosine polynomial of range $R$, and expansion gives Eq.~\eqref{centered}. Positivity of every $b_m$ implies $D_R(x)>0$ for $0<|x|\leq\pi$, proving stability globally, rather than merely at sampled frequencies.
+
+There is also a direct energy certificate. With the forward difference $(\Delta u)_n=u_{n+1}-u_n$, the total energy can be written
+\begin{equation}
+ H=\frac12\|\dot u\|^2+
+ \frac{c^2}{2k^2}\sum_{m=1}^R\frac{b_m}{4^m}\|\Delta^m u\|^2\geq0.
+\end{equation}
+This applies on a periodic lattice or for sufficiently decaying data. Thus the construction has a nonnegative net quadratic energy despite its signed pair coefficients. It does not describe a chain made exclusively of positive pair springs; that would return us to Eq.~\eqref{positive}.
+
+The coefficients cancel the even moments through order $2R$ beyond the normalization. More explicitly,
+\begin{equation}
+ D_R(x)=x^2-C_Rx^{2R+2}+O(x^{2R+4}),\qquad
+ C_R=\frac{2(R!)^2}{(2R+2)!}>0,
+\end{equation}
+and hence
+\begin{equation}\label{grouporder}
+ \frac{v_g}{c}=1-\frac{2R+1}{2}C_Rx^{2R}+O(x^{2R+2}).
+\end{equation}
+The first slowdown is quadratic at $R=1$, quartic at $R=2$, and of order $x^{2R}$ in general. A universal nonzero quadratic delay therefore does not follow from stability and minimum spacing alone.
+
+For every fixed $X<\pi$, the series for $P_R$ and its derivative converge uniformly on $0\leq y\leq\sin^2(X/2)<1$. Factoring out $4y$ handles the acoustic limit without dividing by zero. It follows that both $v_p/c$ and $v_g/c$ converge uniformly to one on $[0,X]$ as $R$ grows, while the spacing $k$ remains fixed. The family also satisfies $0\leq v_g\leq c$ throughout the positive half-zone; a proof is given in Appendix~\ref{app:speed}. Thus approximation does not require a group-speed overshoot.
+
+\section{Numerical comparison and band optimization}
+The reproducible script \texttt{study.py} evaluates centered rules at ranges $1,2,3,4,6,8,12,16$ on bands ending at $\pi/4$, $\pi/2$, and $3\pi/4$. It also solves a sampled minimax optimization for a stability-certified subclass,
+\begin{equation}
+ P(y)=4y+\sum_{m=2}^R b_m y^m,\qquad b_m\geq0,
+\end{equation}
+minimizing $\sup_{[0,X]}|D(x)/x^2-1|$. The constraints are linear in the coefficients. Nonnegative polynomial coefficients guarantee stability over the full zone, even though only the chosen band enters the objective. This is a subclass of stable signed rules, not the complete class. The sampled linear program, refined at candidate extrema, does not establish an exact continuous minimax optimum.
+
+For $X=\pi/2$, corresponding to wavelengths at least $4k$, the maximum speed errors are:
+\begin{center}
+\small
+\input{error_table.tex}
+\end{center}
+The band optimization minimizes squared phase error, while the table reports phase and group errors separately. At range four it reduces the phase error from approximately $0.337\%$ for the centered rule to $0.00668\%$. Its group error is approximately $0.359\%$, compared with $2.66\%$ for the centered rule. These are dense-grid estimates of model errors, not experimental uncertainties.
+
+That improvement has a tradeoff. Some optimized rules restore a small lower-order dispersion term and permit group speeds above $c$. For range four the maximum full-zone group speed is about $1.00073c$. Global energy stability does not forbid this. Imposing a group-speed cap would require an additional optimization constraint. The centered construction already supplies a family meeting that cap, though it is not the phase-error minimax rule on the selected band.
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figures/dispersion.pdf}
+\captionof{figure}{Centered rules approach continuum propagation over larger portions of the lattice spectrum as range increases. Every finite-range curve still has zero group speed at the zone edge.}\label{fig:dispersion}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figures/convergence.pdf}
+\captionof{figure}{Band errors for the stable centered family. Smaller comparison bands converge more rapidly. Values near $10^{-15}$ encounter the double-precision floor; separate 70-digit endpoint checks are retained in the numerical output.}
+\end{minipage}
+\end{center}
+
+\section{What remains unavoidable?}
+\paragraph{Fixed finite range cannot be exactly continuum-like.}
+If a finite cosine polynomial $D(x)$ equaled $x^2$ on a nonempty open interval, analyticity would extend that identity to all real $x$, contradicting periodicity. At fixed $R$ the approximation space is finite-dimensional and closed, so a fixed nontrivial band's optimal uniform error is strictly positive. Increasing $R$ changes the class and allows that error to tend to zero.
+
+\paragraph{The edge remains different.}
+For every finite-range symmetric rule, $D'(\pi)=0$. If $D(\pi)>0$, then $v_g(\pi)=0$. Consequently its worst group-speed error on the entire closed zone is at least one, regardless of the accuracy at lower wave numbers. This statement excludes rules with a zero-frequency edge, where the square-root derivative needs separate treatment. The centered construction has no such extra zero. Phase speeds can converge even at the edge; group speeds cannot converge uniformly there.
+
+\paragraph{Removing locality changes the answer again.}
+The absolutely summable infinite-range coefficients
+\begin{equation}
+ a_r=\frac{2(-1)^{r+1}}{r^2},\qquad r=1,2,\ldots,
+\end{equation}
+give
+\begin{equation}
+ 2\sum_{r=1}^{\infty}a_r(1-\cos rx)=x^2,
+ \qquad -\pi\leq x\leq\pi,
+\end{equation}
+by the Fourier series of the periodic extension of $x^2$. Thus a stable nonlocal lattice can have exactly continuum dispersion throughout the zone interior. Its periodic symbol has a derivative mismatch at the identified endpoints. Also, the differentiated second-moment series is not absolutely convergent, so the finite-range moment argument cannot simply be applied term by term. Spectral differentiation provides related constructions \cite{trefethen}.
+
+\section{Consequence for the minimum-distance question}
+The outcome is conditional, but decisive for interpreting the earlier timing tests. Within positive pair interactions, the original quadratic slowdown has a sharp lower coefficient, and nearest neighbors are optimal in phase speed. With stability alone, no universal positive lower bound on a sub-cutoff propagation discrepancy remains when interaction range is allowed to increase. Exact continuum dispersion is unavailable at fixed finite range, but any prescribed finite accuracy below the cutoff can be reached by a stable signed rule.
+
+This does not establish that signed interactions describe photons. It establishes that a position gap does not select the observable signal. Positivity, locality, interaction range, and any constraint on propagation speed are independent physical inputs. Under the additional photon interpretation, Eq.~\eqref{grouporder} moves the first energy-dependent delay to progressively higher orders, weakening the relevance of quadratic arrival-time bounds for those models. Such bounds continue to constrain the original positive-coupling class in its low-energy regime; they do not constrain every stable realization of a discrete position space.
+
+The next physical question is therefore which dynamical restrictions are justified independently. Greater detector sensitivity helps only after a particular interaction class supplies a signal to seek. These calculations clarify that choice without supplying a new electromagnetic theory, new measurements, or evidence for physical discreteness.
+
+\appendix
+\section{A group-speed bound for the centered family}\label{app:speed}
+Let $P=P_R$ in Eq.~\eqref{poly}. Since $y'=\sqrt{y(1-y)}$ on $0<x<\pi$,
+\begin{equation}
+ \left(\frac{v_g}{c}\right)^2=\frac{y(1-y)P'(y)^2}{4P(y)}.
+\end{equation}
+It suffices to show $G=4P-y(1-y)P'^2\geq0$. Write $P'=\sum_{j=0}^{R-1}d_jy^j$. The coefficients are positive and decrease: $d_0=4$ and $d_j/d_{j-1}=2j/(2j+1)<1$. If $P'^2=\sum_n h_ny^n$, its finite convolution coefficients decrease for $n\geq R-1$: advancing $n$ drops one positive term and decreases each surviving term.
+
+For the full arcsine series, the corresponding expression $G$ vanishes identically. Truncating $P$ after degree $R$ changes $G$ only at order $y^{R+1}$, so all lower coefficients vanish. For $j\geq R+1$ the coefficient of $y^j$ in $G$ is $h_{j-2}-h_{j-1}\geq0$, taking coefficients outside the finite support to be zero. Hence $G\geq0$ on $[0,1]$. Since $P'>0$, the group speed is nonnegative, proving the bound. The script independently checks this polynomial certificate exactly for each tested range.
+
+\section{Computational checks and limitations}
+The script checks normalization and canceled moments using rational arithmetic, and verifies the equality between the signed cosine symbol and the positive polynomial using symbolic algebra. This certifies global stability of the centered family and its group-speed bound at the tested ranges. Optimized models have a global coefficient-sign stability certificate, not merely a sampled stability test. Numerical consistency checks compare normalization and the analytical optimum in the positive-coupling class.
+
+Errors are evaluated on 100,001 points per comparison band and over the full zone. Optimization uses sampled constraints, extrema refinement, and a feasibility tolerance of $10^{-10}$. Reported very small errors must be interpreted in light of solver and floating-point tolerances. Seventy-digit endpoint calculations document the roundoff floor for centered rules; they are not certified continuous extrema. The saved coefficients, solver scope, error metrics, and exact-check outcomes are in \texttt{results.json}; plots and a CSV are generated by the same run.
+
+\begin{thebibliography}{9}
+\small
+\bibitem{nist} NIST Digital Library of Mathematical Functions, \S3.4, Differentiation. \url{https://dlmf.nist.gov/3.4}.
+\bibitem{fornberg} B. Fornberg, Generation of finite difference formulas on arbitrarily spaced grids, \emph{Mathematics of Computation} \textbf{51} (1988), 699--706. \href{https://doi.org/10.1090/S0025-5718-1988-0935077-0}{doi:10.1090/S0025-5718-1988-0935077-0}.
+\bibitem{trefethen} L. N. Trefethen, \emph{Spectral Methods in MATLAB}, SIAM (2000). \href{https://doi.org/10.1137/1.9780898719598}{doi:10.1137/1.9780898719598}.
+\end{thebibliography}
+\end{document}

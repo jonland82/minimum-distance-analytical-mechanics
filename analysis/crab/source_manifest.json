@@ -1,0 +1,23 @@
+{
+  "source": "https://arxiv.org/html/1709.00346v1",
+  "sha256_paper_html": "1d5f294f66401ed361aad1460b0b1659a933cf09feda504b751233cddcfacf4f",
+  "raw_event_data_downloaded": false,
+  "access_checks": [
+    {
+      "url": "https://magic.mpp.mpg.de/backend/publication/show/389",
+      "result": "Indexed publication metadata found; direct local request timed out"
+    },
+    {
+      "url": "https://opendata.magic.pic.es/",
+      "result": "Public catalog inspected; original pulsar LIV sample not listed"
+    },
+    {
+      "url": "https://zenodo.org/records/11108474",
+      "result": "60-hour Crab Nebula release identified; not the original full pulsar LIV sample"
+    },
+    {
+      "url": "https://doi.org/10.3847/1538-4365/aa8404",
+      "result": "Published measurements available through indexed text and arXiv full text"
+    }
+  ]
+}
