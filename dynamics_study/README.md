@@ -1,8 +1,12 @@
 # How closely can a discrete space imitate continuum waves?
 
+**Question:** if there is a minimum distance, must waves reveal it? The original paper suggested a possible route to detection: a small change in wave speed could accumulate over an astronomical journey. This note asks whether that change follows from the spacing itself or from the interactions placed on the lattice.
+
 **Result:** at fixed lattice spacing, stable signed interactions can approximate continuum phase and group speeds arbitrarily well on any fixed wave-number band strictly below the lattice cutoff. Minimum spacing alone therefore does not enforce the earlier quadratic slowdown. Positive pair interactions do enforce a stronger limitation.
 
 Read [the mathematical note](dynamics_note.pdf) or [its LaTeX source](dynamics_note.tex).
+
+The note follows the question from the [original geometric premise](../consequences_of_minimum_distance.pdf) and [photon-timing tests](../companion_note/photon_timing_companion.pdf), through the limitation of positive interactions, a stable signed construction, numerical comparisons, and the differences that remain at finite range and at the cutoff. It closes by identifying what a physical model must specify before an experiment can test its predicted signal. Definitions and a range-two cancellation example introduce the formalism; proofs and numerical results retain their original scope.
 
 ## What was done
 

@@ -24,7 +24,7 @@ The geometric hypothesis, the lattice dynamics, and the interpretation as photon
 | [LHAASO analysis](analysis/README.md) | Independent exploratory cross-correlation, transformed published limits, provenance |
 | [Crab comparison](analysis/crab/README.md) | Published pulse-summary recalculation; no original event-level fit |
 | [PKS comparison](analysis/pks2155/README.md) | Published-result translation; separate restricted-release software diagnostic |
-| [Dynamics study](dynamics_study/README.md) | Proofs, stable signed constructions, optimization, independent numerical checks |
+| [Dynamics study](dynamics_study/README.md) | Must minimum distance leave a wave signature? Positive and signed interactions, proofs, optimization, and independent checks |
 | [Scale reach](analysis/scale_reach.md) | Sensitivity context and model dependence |
 | `index.html`, `site.css`, `site.js` | Static project page and interactive centered-family group-speed plot |
 
