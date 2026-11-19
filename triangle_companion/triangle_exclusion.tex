@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,lmodern,microtype}
+\usepackage[T1]{fontenc}
+\usepackage[hidelinks]{hyperref}
+\begin{document}
+\begin{center}
+{\LARGE How large must a triangle be to survive?}\\[6pt]
+{\large Minimum-distance exclusion under two sampling laws}\\[6pt]
+Jonathan Robert Landers
+\end{center}
+
+A triangle can have a long diameter and still have two vertices too close
+together to satisfy a minimum-distance requirement. Enlarging the triangle
+eventually resolves the pair. How large must a randomly drawn shape become?
+We compare two ways of drawing a triangle. One loses a greater fraction of
+shapes at every diameter above the cutoff. Its mean required diameter is
+infinite, although each individual shape has a finite threshold.
+
+\paragraph{Shapes and scale.}
+Take the three vertices as the required points and let $k>0$ be the minimum
+permitted distance between distinct points. The diameter $D$ is the longest
+side. If $S$ is the ratio of shortest to longest side, the closest two
+vertices lie $DS$ apart. The shape first satisfies the cutoff at diameter
+$M=k/S$, with equality allowed. Thus the fraction lost at a given diameter
+$D$ is $\Pr(M>D)=\Pr(S<k/D)$.
+
+Under law $R$, choose an acute angle $\theta$ uniformly in $(0,\pi/2)$ and
+form a right triangle with unit hypotenuse. Under law $A$, fix one side at one
+and draw the other two lengths $(u,v)$ uniformly by area from
+$T=\{(u,v)\in(0,1]^2:u+v>1\}$. The unit side is longest and the inequality
+ensures a nondegenerate triangle. Both laws fix the same diameter before
+rescaling.
+
+\paragraph{Theorem.}
+\textit{For every $D>k$, the minimum surviving diameters obey
+$\Pr(M_R>D)>\Pr(M_A>D)$. Their means satisfy
+$\mathbb E[M_R]=\infty$ and $\mathbb E[M_A]=4k\log 2$.}
+
+\paragraph{Derivation of the exclusion probabilities.}
+Write $t=k/D$ and $E_i(t)=\Pr(S_i<t)$ for $i=R,A$. The legs of the right
+triangle are $\sin\theta$ and $\cos\theta$. For $0<t\le1/\sqrt2$, both reach
+the cutoff exactly when $\arcsin t\le\theta\le\pi/2-\arcsin t$.
+Dividing the excluded angular length by $\pi/2$ gives
+\[
+ E_R(t)=
+ \begin{cases}
+ (4/\pi)\arcsin t,&0<t\le1/\sqrt2,\\
+ 1,&t>1/\sqrt2 .
+ \end{cases}
+\]
+At $t=1/\sqrt2$ only the isosceles right triangle survives, a single angle of
+probability zero.
+
+For law $A$, $S_A=\min(u,v)$ and $T$ has area $1/2$. When $t\le1/2$, the
+corner with $u<t$ has area $\int_0^t u\,du=t^2/2$, since $1-u<v\le1$.
+The corner with $v<t$ has the same area and the two are disjoint. For
+$1/2<t<1$, the surviving square $[t,1]^2$ lies entirely in $T$. Dividing
+by the total area gives
+\[
+ E_A(t)=
+ \begin{cases}
+ 2t^2,&0<t\le1/2,\\
+ 1-2(1-t)^2,&1/2<t<1,\\
+ 1,&t\ge1 .
+ \end{cases}
+\]
+\newpage
+\paragraph{Ordering at every diameter.}
+At $D=2k$ the two curves give losses of $2/3$ and $1/2$, respectively.
+To see why their order persists, bound $E_A(t)$ by a straight line through
+the origin. The least possible slope is the largest value of
+\[
+ \frac{E_A(t)}t=
+ \begin{cases}
+ 2t,&0<t\le1/2,\\
+ 4-2t-1/t,&1/2<t\le1 .
+ \end{cases}
+\]
+The first branch increases to one. The second has derivative $-2+1/t^2$,
+positive below $1/\sqrt2$ and negative above. The maximum slope is
+therefore $4-2\sqrt2\simeq1.172$, below $4/\pi\simeq1.273$.
+Since $\arcsin t\ge t$, for $0<t\le1/\sqrt2$ we have
+\[
+ E_A(t)\le(4-2\sqrt2)t < (4/\pi)t\le E_R(t).
+\]
+For $1/\sqrt2<t<1$, the right-triangle loss is already one, while the
+side-sampled law retains a square of positive area. Together these intervals
+cover every $D>k$. At $D=k$ only an equilateral triangle can pass, and its
+probability under law $A$ is zero. The two loss probabilities then coincide.
+
+\paragraph{Mean required diameter.}
+The same narrow shapes that determine the large-$D$ loss also determine
+whether $M$ has a finite mean. For a right triangle, symmetry exchanges the
+two legs at $\theta=\pi/4$. On the lower half of the angular interval,
+$S_R=\sin\theta$, so
+\[
+ \frac{\mathbb E[M_R]}k
+ =\frac4\pi\int_0^{\pi/4}\frac{d\theta}{\sin\theta}
+ \ \ge\ \frac4\pi\int_0^{\pi/4}\frac{d\theta}{\theta}
+ =\infty .
+\]
+Under law $A$, differentiating the continuous, piecewise smooth function
+$E_A$ gives density $4s$ for $0<s<1/2$ and $4(1-s)$ for $1/2<s<1$.
+Consequently
+\begin{align*}
+ \frac{\mathbb E[M_A]}k
+ &=\int_0^{1/2}\frac{4s}{s}\,ds+
+   \int_{1/2}^1\frac{4(1-s)}s\,ds\\
+ &=2+4(\log 2-1/2)=4\log 2 .
+\end{align*}
+This proves both claims. \hfill$\square$
+
+The difference comes from the room each law gives to a short side. Under
+uniform angles, a leg shorter than $t$ occupies an angular interval of order
+$t$ at either endpoint. Under uniform side pairs, a side of length $u<t$ also
+confines its partner to an interval of width $u$. Integrating that width gives
+a loss of order $t^2$. At large diameters the excluded fractions thus decay
+as $D^{-1}$ and $D^{-2}$, respectively. The choice of how to sample a shape
+determines whether its mean required diameter exists.
+
+\smallskip
+{\small\noindent\textit{Related work.}
+The angular calculation follows J.~R. Landers,
+\textit{Consequences of Minimum Distance in Mathematics and Physics},
+section on surviving triangles. For side distributions obtained by sampling
+directions independently, see
+\href{https://www.cambridge.org/core/journals/journal-of-applied-probability/article/size-distributions-in-random-triangles/117ED3787DE9B79B1AC3862B0B6C3EAB}{\textit{Size distributions in random triangles}},
+\textit{Journal of Applied Probability}.}
+\end{document}
