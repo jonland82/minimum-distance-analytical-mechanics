@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A mathematical exploration of minimum distance, lattice dynamics, and astronomical photon-timing tests by Jonathan Robert Landers.">
+  <meta name="description" content="A mathematical exploration of minimum distance in geometry, one-stop routing, lattice dynamics, and photon timing by Jonathan R. Landers.">
   <title>Consequences of Minimum Distance</title>
   <link rel="stylesheet" href="site.css">
   <script>window.MathJax={tex:{inlineMath:[["\\(","\\)"]],displayMath:[["$$","$$"]]},svg:{fontCache:"global"}};</script>
@@ -14,28 +14,35 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="topbar"><nav class="nav" aria-label="Primary">
     <a class="mark" href="#top"><span class="mark-dot" aria-hidden="true"></span>Minimum Distance</a>
-    <div class="navlinks"><a href="#story">Premise</a><a href="#observations">Observations</a><a href="#dynamics">Dynamics</a><a href="#papers">Papers</a><a href="https://github.com/jonland82/minimum-distance-analytical-mechanics">Code</a></div>
+    <div class="navlinks"><a href="#story">Research threads</a><a href="#geometry">Geometry &amp; routing</a><a href="#dynamics">Dynamics</a><a href="#observations">Observations</a><a href="#papers">Papers</a><a href="https://github.com/jonland82/minimum-distance-analytical-mechanics">Code</a></div>
   </nav></header>
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title"><div class="hero-inner">
       <div class="kicker"><span class="pill">Geometry · dynamics · measurement</span></div>
       <h1 id="hero-title">What follows if distance<br>has a lower limit?</h1>
-      <p class="author">Jonathan Robert Landers</p>
-      <p class="subtitle">Start with a simple premise: distinct positions are separated by at least a distance \(k\). Follow it through triangles, motion, lattice waves, and astronomical timing. Then ask how much of the prediction comes from the geometry—and how much comes from the dynamics we chose.</p>
-      <div class="actions"><a class="button primary" href="consequences_of_minimum_distance.pdf">Read the original paper</a><a class="button" href="#papers">All three notes</a><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics">Code &amp; results</a></div>
+      <p class="author">Jonathan R. Landers</p>
+      <p class="subtitle">Suppose distinct positions are separated by at least \(k\). That premise puts a threshold on which triangles fit at a given size and gives repeated routing queries a way to skip a scan. It also motivates lattice-wave models whose predictions can be compared with photon timing.</p>
+      <div class="actions"><a class="button primary" href="#papers">Browse the papers</a><a class="button" href="consequences_of_minimum_distance.pdf">Read the original paper</a><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics">Code &amp; results</a></div>
     </div></section>
     <section aria-label="Key findings"><div class="metric-row">
       <div class="metric"><strong>\(d(x,y)\geq k\)</strong><span>the premise, for distinct positions</span></div>
-      <div class="metric"><strong>3 source comparisons</strong><span>gamma-ray burst, pulsar, and active galaxy</span></div>
-      <div class="metric"><strong>\(\sim 10^{-27}\) m</strong><span>strongest translated effective-length limit in this study</span></div>
-      <div class="metric"><strong>Dynamics matter</strong><span>stable signed couplings can cancel the quadratic slowdown</span></div>
+      <div class="metric"><strong>\(O(\log n)\) per query</strong><span>indexed one-stop routing on fixed geometry</span></div>
+      <div class="metric"><strong>Dynamics matter</strong><span>stable signed couplings can suppress quadratic dispersion</span></div>
+      <div class="metric"><strong>\(\sim 10^{-27}\) m</strong><span>strongest conditional effective-length limit in this study</span></div>
     </div></section>
     <section id="story" aria-labelledby="story-title">
-      <div class="section-head"><h2 id="story-title">A small premise.<br>A chain of consequences.</h2><p class="lead">Uniform discreteness is a precise mathematical assumption. A lattice, an interaction law, and an interpretation as photon propagation are additional choices. Each step changes what can be concluded.</p></div>
+      <div class="section-head"><h2 id="story-title">One premise, several questions</h2><p class="lead">The cutoff constrains distances directly. Counting shapes requires a sampling law, routing adds an optimization objective, and physical predictions require a model of how waves propagate.</p></div>
       <div class="story-grid">
-        <article class="story-card"><span class="step">1</span><h3>Geometry</h3><p>A Euclidean right triangle needs a hypotenuse at least \(\sqrt{2}k\). Bisection must stop. A continuous point trajectory from a connected time interval into this discrete space is constant.</p></article>
-        <article class="story-card"><span class="step">2</span><h3>A model of motion</h3><p>Place continuous-time wave amplitudes on \(k\mathbb Z\). With symmetric positive couplings, short waves travel more slowly. The leading group-speed correction is quadratic in wave number.</p></article>
-        <article class="story-card"><span class="step">3</span><h3>A conditional test</h3><p>If photons follow that wave law, high-energy photons acquire a propagation delay. Published astronomical timing limits constrain its coefficient. They do not establish a smallest distance.</p></article>
+        <article class="story-card"><h3>Which shapes survive?</h3><p>A triangle survives when its shortest side reaches \(k\). Count exclusions under two shape distributions, then use the same threshold to index candidate routes.</p><a class="text-link" href="#geometry">Geometry and routing</a></article>
+        <article class="story-card"><h3>How do waves travel?</h3><p>Positive couplings enforce a leading quadratic slowdown in the lattice model. Stable signed couplings can suppress it to arbitrarily high order.</p><a class="text-link" href="#dynamics">Explore the dynamics</a></article>
+        <article class="story-card"><h3>What can timing measure?</h3><p>If photons obey the quadratic wave law, timing limits from a burst, a pulsar, and an active galaxy constrain the effective interaction length.</p><a class="text-link" href="#observations">See the observational limits</a></article>
+      </div>
+    </section>
+    <section id="geometry" aria-labelledby="geometry-title">
+      <div class="section-head"><h2 id="geometry-title">From triangles to routing</h2><p class="lead">Fix a triangle?s shape. If \(S\) is the ratio of its shortest to longest side, the minimum surviving diameter is \(k/S\). Vary the shape to count exclusions, or vary the cutoff to query a fixed list of routes.</p></div>
+      <div class="story-grid companion-grid">
+        <article class="story-card"><h3>How large must a triangle be to survive?</h3><p>At every diameter \(D&gt;k\), the cutoff excludes a greater fraction of angle-uniform right triangles than of triangles sampled uniformly by area in normalized side-length coordinates. Their mean required diameters are infinite and \(4k\log 2\), respectively.</p><div class="actions"><a class="button primary" href="triangle_companion/triangle_exclusion.pdf">Read the triangle paper</a></div></article>
+        <article class="story-card"><h3>One-stop routing with a changing distance cutoff</h3><p>Sort candidate stops by the shortest side of their route triangle. The index answers repeated cutoff queries in \(O(\log n)\) after \(O(n\log n)\) preprocessing. It was 2.63? faster including the build for 1,000 queries over 100,000 synthetic stops, compared with cached exhaustive scans.</p><div class="actions"><a class="button primary" href="routing_note/one_stop_routing.pdf">Read the routing paper</a><a class="text-link" href="routing_note/runtime.pdf">Runtime plots</a></div></article>
       </div>
     </section>
     <section aria-labelledby="formalism-title">
@@ -69,15 +76,17 @@
       <p class="footnote">This is a model calculation, not experimental evidence. The finite-difference formulas are established numerical mathematics. A group-speed cap and energy stability do not supply a complete relativistic theory.</p>
     </section>
     <section id="papers" aria-labelledby="papers-title">
-      <div class="section-head"><h2 id="papers-title">Three notes.<br>One line of inquiry.</h2><p class="lead">Read the premise first, follow the observational checks, then revisit the dynamical assumptions. Sources, scripts, figures, and saved results are included in the repository.</p></div>
-      <div class="story-grid paper-list">
-        <article class="story-card"><span class="eyebrow cyan">01 / The premise</span><h3>Consequences of Minimum Distance in Mathematics and Physics</h3><p>Geometric restrictions, classical lattice waves, a positive-coupling dispersion bound, and a conditional photon test.</p><div class="actions"><a class="button primary" href="consequences_of_minimum_distance.pdf">Read PDF</a><a class="text-link" href="consequences_of_minimum_distance.tex">LaTeX</a></div></article>
-        <article class="story-card"><span class="eyebrow gold">02 / Observations</span><h3>Photon-Timing Tests of a Minimum-Distance Propagation Model</h3><p>Three source comparisons, the difference between exploratory calculations and published bounds, and the sensitivity gap.</p><div class="actions"><a class="button primary" href="companion_note/photon_timing_companion.pdf">Read PDF</a><a class="text-link" href="companion_note/photon_timing_companion.tex">LaTeX</a></div></article>
-        <article class="story-card"><span class="eyebrow green">03 / Dynamics</span><h3>How closely can a discrete space imitate continuum waves?</h3><p>Must a minimum distance leave a wave signature? Keep the spacing, change the interactions, and follow what this means for detection.</p><div class="actions"><a class="button primary" href="dynamics_study/dynamics_note.pdf">Read PDF</a><a class="text-link" href="dynamics_study/dynamics_note.tex">LaTeX</a></div></article>
+      <div class="section-head"><h2 id="papers-title">Papers</h2><p class="lead">Start with the original paper or choose a companion by topic.</p></div>
+      <div class="story-grid paper-list companion-grid">
+        <article class="story-card"><span class="eyebrow cyan">Shared premise</span><h3>Consequences of Minimum Distance in Mathematics and Physics</h3><p>Geometric restrictions, classical lattice waves, a positive-coupling dispersion bound, and a conditional photon test.</p><div class="actions"><a class="button primary" href="consequences_of_minimum_distance.pdf" aria-label="Read Consequences of Minimum Distance in Mathematics and Physics (PDF)">Read PDF</a><a class="text-link" href="consequences_of_minimum_distance.tex" aria-label="LaTeX source for Consequences of Minimum Distance in Mathematics and Physics">LaTeX</a></div></article>
+        <article class="story-card"><span class="eyebrow cyan">Geometry</span><h3>How large must a triangle be to survive?</h3><p>Exact exclusion curves, an all-scale comparison of two sampling laws, and finite versus infinite mean survival thresholds.</p><div class="actions"><a class="button primary" href="triangle_companion/triangle_exclusion.pdf" aria-label="Read How large must a triangle be to survive? (PDF)">Read PDF</a><a class="text-link" href="triangle_companion/triangle_exclusion.tex" aria-label="LaTeX source for How large must a triangle be to survive?">LaTeX</a></div></article>
+        <article class="story-card"><span class="eyebrow cyan">Algorithms</span><h3>One-stop routing with a changing distance cutoff</h3><p>An exact index for fixed endpoints and stops, a comparison lower bound, and reproducible runtime experiments.</p><div class="actions"><a class="button primary" href="routing_note/one_stop_routing.pdf" aria-label="Read One-stop routing with a changing distance cutoff (PDF)">Read PDF</a><a class="text-link" href="routing_note/one_stop_routing.tex" aria-label="LaTeX source for One-stop routing with a changing distance cutoff">LaTeX</a></div></article>
+        <article class="story-card"><span class="eyebrow green">Dynamics</span><h3>How closely can a discrete space imitate continuum waves?</h3><p>Keep the lattice spacing fixed and examine how stable signed interactions change the dispersion.</p><div class="actions"><a class="button primary" href="dynamics_study/dynamics_note.pdf" aria-label="Read How closely can a discrete space imitate continuum waves? (PDF)">Read PDF</a><a class="text-link" href="dynamics_study/dynamics_note.tex" aria-label="LaTeX source for How closely can a discrete space imitate continuum waves?">LaTeX</a></div></article>
+        <article class="story-card"><span class="eyebrow gold">Observations</span><h3>Photon-Timing Tests of a Minimum-Distance Propagation Model</h3><p>Three observational comparisons, published bounds, and the sensitivity gap.</p><div class="actions"><a class="button primary" href="companion_note/photon_timing_companion.pdf" aria-label="Read Photon-Timing Tests of a Minimum-Distance Propagation Model (PDF)">Read PDF</a><a class="text-link" href="companion_note/photon_timing_companion.tex" aria-label="LaTeX source for Photon-Timing Tests of a Minimum-Distance Propagation Model">LaTeX</a></div></article>
       </div>
     </section>
-    <section aria-labelledby="next-title"><div class="future-card"><span class="eyebrow">Where this leaves the question</span><h2 id="next-title">A minimum distance needs a physical model.</h2><p>The observations leave Planck-spacing versions of the positive-coupling model far beyond reach. The dynamics study adds another lesson: minimum spacing alone does not enforce a detectable quadratic delay. Further tests need additional physical assumptions about interactions, matter, or cosmology before they can make specific predictions.</p><div class="actions"><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics#reproduce">Reproduce the calculations</a></div></div></section>
+    <section aria-labelledby="next-title"><div class="future-card"><h2 id="next-title">Reproduce the results</h2><p>The repository includes manuscript sources, routing benchmarks, lattice calculations, and the provenance for each timing comparison.</p><div class="actions"><a class="button" href="https://github.com/jonland82/minimum-distance-analytical-mechanics#reproduce">Reproduction instructions</a></div></div></section>
   </main>
-  <footer class="footer"><div class="footer-inner"><span>Jonathan Robert Landers · November 2026</span><span>Mathematical exploration &amp; conditional observational tests</span><a href="https://github.com/jonland82/minimum-distance-analytical-mechanics">GitHub ↗</a></div></footer>
+  <footer class="footer"><div class="footer-inner"><span>Jonathan R. Landers · November 2026</span><span>Geometry, routing, dynamics, and photon timing</span><a href="https://github.com/jonland82/minimum-distance-analytical-mechanics">GitHub ↗</a></div></footer>
 </body>
 </html>
