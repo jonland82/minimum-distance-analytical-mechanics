@@ -771,6 +771,12 @@
     }
   /* Project-specific additions to the shared research-page aesthetic. */
 .author { margin: 20px 0 0; color: var(--cyan); font-size: 18px; font-weight: 500; }
+.epigraph { max-width: 760px; margin: 0 0 28px; padding: 4px 0 4px 18px; border-left: 1px solid var(--faint); }
+.epigraph p { margin: 0; color: var(--text); font-family: Georgia, serif; font-size: 18px; font-style: italic; line-height: 1.5; }
+.epigraph footer { margin-top: 8px; color: var(--muted); font-size: 14px; }
+.epigraph cite { font-style: normal; }
+.epigraph a { text-decoration: underline; text-underline-offset: 3px; }
+.epigraph a:hover { color: var(--text); }
 h1 { max-width: 800px; font-size: clamp(36px, 5.5vw, 62px); }
 h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 520; font-size: clamp(27px, 3.5vw, 38px); }
 section { scroll-margin-top: 72px; }
