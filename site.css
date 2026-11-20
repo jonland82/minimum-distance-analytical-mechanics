@@ -817,6 +817,9 @@ input[type=range] { display: block; width: 200px; margin-top: 12px; accent-color
     linear-gradient(currentColor, currentColor) 3px 8px / 4px 1px no-repeat;
   opacity: .8;
 }
+.paper-equation { margin: 16px 0 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+.paper-equation .formula { max-width: 100%; overflow-x: auto; padding: 4px 0; color: var(--text); font-size: 17px; }
+.paper-equation figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .text-link { font-size: 12px; padding: 9px 0; color: var(--muted); text-decoration: underline; }
 .paper-list .eyebrow { font-family: 'Courier New', monospace; letter-spacing: .16em; }
 .text-link:hover { color: #ffffff; }
