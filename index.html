@@ -10,6 +10,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <style>
     .overview { padding: clamp(32px, 5vw, 64px) 0 0; }
+    .repo-link { display: inline-block; margin-bottom: 20px; color: var(--muted); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+    .repo-link:hover { color: var(--text); }
     .title-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .overview h1 { min-width: 0; font-size: clamp(27px, 3.5vw, 38px); line-height: 1.15; }
     .distance-icon { width: 112px; height: 112px; flex: 0 0 auto; color: var(--cyan); }
@@ -32,6 +34,7 @@
 <body>
   <main>
     <section class="overview" aria-labelledby="page-title">
+      <a class="repo-link" href="https://github.com/jonland82/minimum-distance-analytical-mechanics">GitHub repository</a>
       <div class="title-row">
         <h1 id="page-title">What follows if distance<br>has a lower limit?</h1>
         <svg class="distance-icon" viewBox="0 0 112 112" role="img" aria-labelledby="distance-icon-title">
