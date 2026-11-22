@@ -47,7 +47,7 @@ def roads():
     while route[0] != 0:
         route.insert(0, previous[route[0]])
     selected = {tuple(sorted(pair)) for pair in zip(route, route[1:])}
-    fig, axes = plt.subplots(2, 1, figsize=(7.05, 5.2), layout="constrained")
+    fig, axes = plt.subplots(1, 2, figsize=(7.1, 2.35), layout="constrained")
     offsets = [(-.14,-.10), (0,-.19), (0,.19), (0,.22), (.05,.18), (.10,-.16), (-.08,-.15), (.24,0)]
     for ax, straight in zip(axes, (False, True)):
         ax.set_title("02   Graph abstraction" if straight else "01   Winding road geometry", fontsize=10, pad=8)
