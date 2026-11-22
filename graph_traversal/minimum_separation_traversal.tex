@@ -78,6 +78,10 @@ imply \eqref{eq:local}, but \eqref{eq:local} does not bound road winding.
 Minimum separation alone does not imply sparse graphs or subcubic graph
 triangle counts, even for planar vertex coordinates.
 \end{proposition}
+Keeping vertices apart does not stop every vertex from connecting to every
+other vertex, so separation alone need not reduce the number of edges or
+graph triangles.
+
 \begin{proof}
 Choose $n$ distinct points on a circle and enlarge the circle until every
 pair is separated by at least $k$. Connect every pair. The resulting graph
@@ -111,6 +115,9 @@ $B(x,r)$ satisfies
  |P\cap B(x,r)|\le \left(1+\frac{2r}{k}\right)^d.
 \end{equation}
 \end{theorem}
+Because each vertex needs its own space, only a limited number can fit
+inside a neighborhood of fixed size.
+
 \begin{proof}
 Center an open ball of radius $k/2$ at each vertex in $P\cap B(x,r)$.
 By \eqref{eq:sep}, these balls are pairwise disjoint; equality at distance
@@ -140,6 +147,10 @@ In particular, in the plane,
  T=O\!\left(n\min\{n^2,(1+\rho)^4\}\right).
 \]
 \end{corollary}
+When the dimension and the ratio $R/k$ stay fixed, each vertex has only a
+bounded number of neighbors, so edges and graph triangles grow at most
+linearly with the network size.
+
 \begin{proof}
 The ball $B(p_i,R)$ contains $p_i$ itself and all its neighbors. Apply
 Theorem~\ref{thm:packing} and subtract the central vertex. The handshake
@@ -234,6 +245,9 @@ operations, the full radius graph is constructed in expected
 time and $O(n+m)$ space. For fixed $\rho$, this is expected $O(n)$ time
 and $O(n)$ space.
 \end{theorem}
+At fixed $R/k$, checking nearby grid cells builds the whole radius graph
+in expected time proportional to its number of vertices.
+
 \begin{proof}
 The cell search includes every pair within distance $R$, and the final
 distance test accepts precisely the edges of the radius graph. At most
