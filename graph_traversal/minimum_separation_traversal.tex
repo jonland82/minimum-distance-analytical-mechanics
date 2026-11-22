@@ -21,6 +21,23 @@
  fontupper=\sffamily\small,
  before upper={\textcolor{routegreen}{\bfseries Takeaway}\par\smallskip}
 }
+\newtcolorbox{construction}{
+ enhanced,
+ title={Construction algorithm.},
+ colback=takeawayink!3!white,
+ colbacktitle=takeawayink,
+ colframe=takeawayink,
+ coltitle=white,
+ colupper=takeawayink,
+ boxrule=0pt,
+ arc=2mm,
+ boxsep=0pt,
+ left=4mm,right=4mm,top=3mm,bottom=3mm,
+ toptitle=2.5mm,bottomtitle=2.5mm,
+ before skip=10pt,after skip=10pt,
+ fonttitle=\sffamily\small\bfseries,
+ fontupper=\ttfamily\small\raggedright
+}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -242,16 +259,23 @@ Thus inspecting the $(2q+1)^2$ cells in that square is sufficient. The
 square may include points outside the radius disk; an exact distance
 comparison removes those candidates.
 
-\paragraph{Construction algorithm.}
+\begin{construction}
 Maintain a dictionary from integer cell indices to previously inserted
-vertices. For each point $p_i$:
+vertices.
+\par\medskip
+For each point $p_i$:
+\renewcommand{\labelenumi}{\textcolor{routegreen}{\scriptsize\ttfamily 0\arabic{enumi}}}
 \begin{enumerate}
+\setlength{\itemsep}{6pt}
+\setlength{\parskip}{0pt}
+\setlength{\topsep}{4pt}
 \item Compute its cell indices $(\lfloor x_i/h\rfloor,\lfloor y_i/h\rfloor)$.
 \item Inspect occupied cells with index offsets in $[-q,q]^2$.
 \item For each vertex found, add its undirected edge exactly when the
 Euclidean distance is at most $R$.
 \item Insert $p_i$ into its own cell.
 \end{enumerate}
+\end{construction}
 Each unordered candidate pair is considered at most once because only
 previously inserted vertices are inspected. To avoid enumerating a huge
 empty search window, fall back to all unordered pairs when
