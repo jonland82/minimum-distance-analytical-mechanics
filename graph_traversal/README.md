@@ -18,6 +18,12 @@ The results specialize standard packing and graph algorithms. Minimum separation
 
 ![Winding roads and their weighted-graph abstraction](figures/road_network.png)
 
+## Argument at a glance
+
+The main arrows connect assumptions, packing, graph-size bounds, construction, and traversal; side branches show the proposition, road example, and implementation evidence.
+
+![The paper's narrative and mathematical dependencies](figures/paper_workflow.png)
+
 ## Reproduce
 
 From the repository root, using its existing Python dependencies:
@@ -26,6 +32,7 @@ From the repository root, using its existing Python dependencies:
 python -m graph_traversal.experiment
 python -m graph_traversal.validate
 python -m graph_traversal.figures
+python -m graph_traversal.workflow
 ```
 
 Build the paper from this directory:
@@ -52,6 +59,7 @@ The independent validation compares adjacency and triangle lists with exhaustive
 | `environment.json` | Generator and Python/NumPy metadata |
 | `validate.py` | Independent reference checks |
 | `figures.py` | Reproduce four figures |
+| `workflow.py` | Reproduce the companion workflow diagram |
 | `figures/` | PDF and SVG vectors and PNG previews |
 
 The grid relies on the separation promise for its complexity bound; it does not enforce a larger separation by removing vertices. Input coordinates and cutoff comparisons use floating-point arithmetic, while the theorems use exact arithmetic. The paper explains the distinction and the separate cost of obtaining road weights.
