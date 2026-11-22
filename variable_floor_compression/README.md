@@ -1,4 +1,4 @@
-# Compressing Road Chains Under a Variable Edge-Cost Floor
+# Compact Road Shortcuts with Guaranteed Error
 
 [Read the five-page note](chain_compression.pdf) · [LaTeX source](chain_compression.tex)
 
