@@ -2,8 +2,25 @@
 \usepackage[letterpaper,margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs,graphicx,xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
 \usepackage[hidelinks]{hyperref}
 \definecolor{routegreen}{HTML}{128675}
+\definecolor{takeawayink}{HTML}{213337}
+\newtcolorbox{takeaway}{
+ enhanced,
+ colback=routegreen!5!white,
+ colframe=routegreen!5!white,
+ colupper=takeawayink,
+ boxrule=0pt,
+ borderline west={2pt}{0pt}{routegreen},
+ arc=2mm,
+ boxsep=0pt,
+ left=4mm,right=4mm,top=3mm,bottom=3mm,
+ before skip=8pt,after skip=9pt,
+ fontupper=\sffamily\small,
+ before upper={\textcolor{routegreen}{\bfseries Takeaway}\par\smallskip}
+}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -78,9 +95,11 @@ imply \eqref{eq:local}, but \eqref{eq:local} does not bound road winding.
 Minimum separation alone does not imply sparse graphs or subcubic graph
 triangle counts, even for planar vertex coordinates.
 \end{proposition}
+\begin{takeaway}
 Keeping vertices apart does not stop every vertex from connecting to every
 other vertex, so separation alone need not reduce the number of edges or
 graph triangles.
+\end{takeaway}
 
 \begin{proof}
 Choose $n$ distinct points on a circle and enlarge the circle until every
@@ -115,8 +134,10 @@ $B(x,r)$ satisfies
  |P\cap B(x,r)|\le \left(1+\frac{2r}{k}\right)^d.
 \end{equation}
 \end{theorem}
+\begin{takeaway}
 Because each vertex needs its own space, only a limited number can fit
 inside a neighborhood of fixed size.
+\end{takeaway}
 
 \begin{proof}
 Center an open ball of radius $k/2$ at each vertex in $P\cap B(x,r)$.
@@ -147,9 +168,11 @@ In particular, in the plane,
  T=O\!\left(n\min\{n^2,(1+\rho)^4\}\right).
 \]
 \end{corollary}
+\begin{takeaway}
 When the dimension and the ratio $R/k$ stay fixed, each vertex has only a
 bounded number of neighbors, so edges and graph triangles grow at most
 linearly with the network size.
+\end{takeaway}
 
 \begin{proof}
 The ball $B(p_i,R)$ contains $p_i$ itself and all its neighbors. Apply
@@ -245,8 +268,10 @@ operations, the full radius graph is constructed in expected
 time and $O(n+m)$ space. For fixed $\rho$, this is expected $O(n)$ time
 and $O(n)$ space.
 \end{theorem}
+\begin{takeaway}
 At fixed $R/k$, checking nearby grid cells builds the whole radius graph
 in expected time proportional to its number of vertices.
+\end{takeaway}
 
 \begin{proof}
 The cell search includes every pair within distance $R$, and the final
