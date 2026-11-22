@@ -1,0 +1,521 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs,graphicx,xcolor}
+\usepackage[hidelinks]{hyperref}
+\definecolor{routegreen}{HTML}{128675}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\R}{\mathbb R}
+\graphicspath{{figures/}{graph_traversal/figures/}}
+\renewcommand{\topfraction}{.9}
+\renewcommand{\textfraction}{.08}
+\renewcommand{\floatpagefraction}{.8}
+\title{Minimum Separation and Locality\\in Geometric Graph Traversal}
+\author{Jonathan R. Landers}
+\date{November 22, 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+A minimum distance between vertices restricts local geometric density, but
+does not by itself make a graph sparse. We separate these statements and
+derive their algorithmic consequences. For a simple graph embedded in
+$\R^d$, assume distinct vertices are separated by at least $k>0$ and edges
+join only vertices at Euclidean distance at most $R$. Disjoint-ball packing
+gives $\Delta\le(1+2R/k)^d-1$. Consequently the graph has
+$O(n(1+R/k)^d)$ edges and $O(n(1+R/k)^{2d})$ graph triangles, with the
+usual finite-$n$ caps. In fixed dimension and at fixed $R/k$, these counts
+are linear. A spatial hash constructs the full radius graph in expected
+linear time in that regime; breadth-first search and binary-heap Dijkstra
+then take $O(n)$ and $O(n\log n)$ time. We provide proofs, a reproducible
+implementation, structural measurements, and an illustrated road example
+that preserves curved-road costs when the drawing is straightened. The
+results specialize standard packing and graph algorithms to the
+minimum-distance premise; they do not introduce a new shortest-path
+algorithm or establish a speedup from minimum separation alone.
+\end{abstract}
+
+\section{The question and the model}
+Can a lower bound on distance eliminate enough triangles to improve graph
+traversal? There are two different counts: triples of geometric positions,
+and triples whose three connecting edges are actually present. The first
+need not decrease. The second can be bounded using an additional locality
+assumption.
+
+Let $P=\{p_1,\ldots,p_n\}\subset\R^d$, $n\ge1$, where $d\ge1$ is fixed.
+We impose the minimum-separation promise
+\begin{equation}\label{eq:sep}
+ \|p_i-p_j\|_2\ge k>0\qquad(i\ne j).
+\end{equation}
+Let $G=(P,E)$ be a simple undirected graph satisfying
+\begin{equation}\label{eq:local}
+ \{p_i,p_j\}\in E\quad\Longrightarrow\quad \|p_i-p_j\|_2\le R,
+ \qquad R\ge0.
+\end{equation}
+Not every pair within range must be an edge. The \emph{full radius graph}
+includes exactly those pairs. Write $m=|E|$, let $\Delta$ be the maximum
+degree, and let $T$ count unordered graph triangles. Define the dimensionless
+ratio $\rho=R/k$. No planar embedding of the edges, lattice structure, or
+absence of edge crossings is required.
+
+The graph may be disconnected. If $R<k$, it has no edges. Thus a connected
+instance with more than one vertex necessarily has $R\ge k$. Traversal
+results apply to each reachable component as usual.
+
+\paragraph{What distances mean.}
+Separation and locality concern \emph{Euclidean endpoint distance}.
+For shortest paths, an edge may instead carry any supplied finite
+nonnegative cost $w(e)$. In a road-length application this is the road's
+arc length, which is at least its endpoint distance. Road time can also be
+used without changing the packing argument. Cost lookup and arithmetic
+are assumed constant time; extracting lengths from detailed road geometry
+is a separate preprocessing task. A maximum road arc length $R$ would
+imply \eqref{eq:local}, but \eqref{eq:local} does not bound road winding.
+
+\section{What the cutoff alone does not establish}
+\begin{proposition}\label{prop:alone}
+Minimum separation alone does not imply sparse graphs or subcubic graph
+triangle counts, even for planar vertex coordinates.
+\end{proposition}
+\begin{proof}
+Choose $n$ distinct points on a circle and enlarge the circle until every
+pair is separated by at least $k$. Connect every pair. The resulting graph
+has $m=\binom n2$ and $T=\binom n3$. Every triple is a nondegenerate
+Euclidean triangle satisfying the cutoff.
+\end{proof}
+
+More generally, any finite Euclidean point set with minimum pair distance
+$\delta>0$ can be scaled by $k/\delta$ to meet the promise, without
+changing its graph topology. If all edge costs scale by the same positive
+factor, shortest-route rankings are unchanged. A lower cutoff therefore
+does not impose a graph-complexity restriction by itself.
+
+The ambient geometry matters as well. In an arbitrary metric space, take
+arbitrarily many points with distance $k$ between every distinct pair.
+A ball of radius $k$ contains all the points. Uniform discreteness alone
+does not bound local occupancy there. The packing results below use fixed
+Euclidean dimension; an extension to other metrics needs a corresponding
+packing hypothesis.
+
+Nor does separation by itself make triangles uniformly well-shaped. The
+points $(0,0)$, $(k,0)$, and $(2k,\varepsilon)$ obey the cutoff while their
+triangle area tends to zero as $\varepsilon\to0$. Mesh-quality or
+minimum-angle assumptions would be additional structure.
+
+\section{Packing converts separation into local density}
+\begin{theorem}[Local occupancy]\label{thm:packing}
+For any $x\in\R^d$ and $r\ge0$, the number of vertices in the closed ball
+$B(x,r)$ satisfies
+\begin{equation}\label{eq:occupancy}
+ |P\cap B(x,r)|\le \left(1+\frac{2r}{k}\right)^d.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Center an open ball of radius $k/2$ at each vertex in $P\cap B(x,r)$.
+By \eqref{eq:sep}, these balls are pairwise disjoint; equality at distance
+$k$ allows their boundaries to touch. All are contained in a ball of
+radius $r+k/2$ centered at $x$. If $v_d$ denotes the unit-ball volume and
+$N=|P\cap B(x,r)|$, volume comparison gives
+\[
+ N v_d(k/2)^d\le v_d(r+k/2)^d.
+\]
+Canceling the common factors proves the claim.
+\end{proof}
+
+\begin{samepage}
+\begin{corollary}[Degree, edges, and graph triangles]\label{cor:counts}
+Set
+\[
+ D=\min\{n-1,\lfloor(1+2\rho)^d\rfloor-1\}.
+\]
+Then
+\begin{equation}\label{eq:counts}
+ \Delta\le D,\qquad m\le\frac{nD}{2},\qquad
+ T\le\frac n3\binom D2.
+\end{equation}
+In particular, in the plane,
+\[
+ m=O\!\left(n\min\{n,(1+\rho)^2\}\right),\qquad
+ T=O\!\left(n\min\{n^2,(1+\rho)^4\}\right).
+\]
+\end{corollary}
+\begin{proof}
+The ball $B(p_i,R)$ contains $p_i$ itself and all its neighbors. Apply
+Theorem~\ref{thm:packing} and subtract the central vertex. The handshake
+identity $2m=\sum_i\deg(p_i)$ proves the edge bound. Each triangle gives
+one pair of adjacent neighbors at each of its three vertices, so
+\[
+ 3T\le\sum_i\binom{\deg(p_i)}2\le n\binom D2.
+\]
+\end{proof}
+\end{samepage}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=.76\linewidth]{packing_bound.pdf}
+\caption{The planar packing argument, illustrated at $R=2k$. Disks of
+radius $k/2$ around a vertex and its possible neighbors have disjoint
+interiors and fit in a disk of radius $R+k/2$. The larger disk is a
+containment device, not an extra connection range.}
+\label{fig:packing}
+\end{figure}
+
+For fixed $d$ and bounded $\rho$, the degree is bounded independently of
+$n$ and both counts are $O(n)$. The area bound is deliberately simple;
+it is not an optimal disk-packing constant. If $\rho$ grows with $n$,
+the displayed dependence must be retained and a dense graph is possible.
+If all positions must also remain inside a fixed-radius region, the
+occupancy theorem bounds $n$ itself. Network-growth statements therefore
+allow the occupied region to expand.
+
+A microscopic physical cutoff and a macroscopic road radius can give an
+enormous $R/k$. In that situation the finite-$n$ cap $n-1$ may be the only
+useful degree bound, and the physical premise yields no practical sparsity
+guarantee. For computation, a stronger certified separation between the
+actual junctions can be used in place of a much smaller universal cutoff.
+Merely declaring a large $k$ without checking the input is not valid.
+
+The powers of $\rho$ have the correct general order when enough space is
+available. On a $k$-spaced $d$-dimensional lattice, an interior vertex has
+$\Theta(\rho^d)$ neighbors for sufficiently large $\rho$. Its neighbors
+within radius $R/2$ are mutually within $R$, yielding
+$\Theta(\rho^{2d})$ triangles incident to that vertex. In large boxes
+with a constant fraction of vertices this far from the boundary, the full
+radius graph has $m=\Theta(n\rho^d)$ and $T=\Theta(n\rho^{2d})$.
+These examples concern the regime where the box is large compared with
+$R$; the finite-$n$ caps still apply.
+
+\paragraph{Which triangles have become fewer?}
+The bound concerns three-edge cliques of the local graph. The same
+separated point set still has $\binom n3$ vertex triples, and every such
+triple already meets the minimum side cutoff. A geometric triangulation
+is another object: in two dimensions its linear face count follows from
+planarity. The cutoff does not by itself supply a triangulation, a
+shortest-path corridor, or a minimum angle.
+
+\section{Algorithms and their cost}
+\subsection{Constructing a local graph without scanning all pairs}
+For the planar full radius graph, put points into half-open square cells
+of side $h=k/\sqrt2$. A cell has diameter strictly less than $k$ between
+any two of its contained points, so it contains at most one vertex.
+For each point, a possible neighbor lies in a cell whose two indices
+differ by at most
+\[
+ q=\left\lceil R/h\right\rceil.
+\]
+Thus inspecting the $(2q+1)^2$ cells in that square is sufficient. The
+square may include points outside the radius disk; an exact distance
+comparison removes those candidates.
+
+\paragraph{Construction algorithm.}
+Maintain a dictionary from integer cell indices to previously inserted
+vertices. For each point $p_i$:
+\begin{enumerate}
+\item Compute its cell indices $(\lfloor x_i/h\rfloor,\lfloor y_i/h\rfloor)$.
+\item Inspect occupied cells with index offsets in $[-q,q]^2$.
+\item For each vertex found, add its undirected edge exactly when the
+Euclidean distance is at most $R$.
+\item Insert $p_i$ into its own cell.
+\end{enumerate}
+Each unordered candidate pair is considered at most once because only
+previously inserted vertices are inspected. To avoid enumerating a huge
+empty search window, fall back to all unordered pairs when
+$(2q+1)^2\ge n$. The implementation also detects this case before
+forming an unnecessarily large $q$.
+
+\begin{theorem}[Planar construction]\label{thm:grid}
+Assuming the separation promise, constant-time distance arithmetic,
+constant-time cell-index arithmetic, and expected constant-time hash
+operations, the full radius graph is constructed in expected
+\[
+ O\!\left(n\min\{n,(1+\rho)^2\}\right)
+\]
+time and $O(n+m)$ space. For fixed $\rho$, this is expected $O(n)$ time
+and $O(n)$ space.
+\end{theorem}
+\begin{proof}
+The cell search includes every pair within distance $R$, and the final
+distance test accepts precisely the edges of the radius graph. At most
+one point occupies each cell. Without the fallback, work per vertex is
+$O((2q+1)^2)=O((1+\rho)^2)$. With it, work is $O(n)$ per vertex. The
+dictionary and stored adjacency lists use $O(n+m)$ space.
+\end{proof}
+
+The expectation concerns hashing, not randomly distributed coordinates.
+The implementation trusts the geometric promise; it does not choose $k$
+and then silently delete nearby input vertices. An unverified claim of a
+larger $k$ can invalidate the complexity guarantee. A smaller valid $k$
+remains correct but weakens that guarantee. The same construction extends
+to fixed dimension $d$ with cells of side $k/\sqrt d$ and exponent $d$.
+
+For a graph with additional local edge restrictions, construction can
+apply a supplied constant-time eligibility predicate to each candidate.
+Arbitrary eligibility computations must be charged separately. If the
+graph is already supplied as adjacency lists, no geometric construction
+is needed.
+
+\subsection{Traversal and shortest paths}
+Let $H=\min\{n,(1+\rho)^d\}$ with fixed $d$. Equation~\eqref{eq:counts}
+gives $n+m=O(nH)$. Standard graph algorithms immediately yield
+Table~\ref{tab:costs}.
+
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{lll}
+\toprule
+Task & General bound here & Bounded $R/k$\\
+\midrule
+Store adjacency lists & $O(nH)$ space & $O(n)$\\
+BFS / DFS & $O(nH)$ time & $O(n)$\\
+Unweighted shortest paths & $O(nH)$ time & $O(n)$\\
+Binary-heap Dijkstra & $O(nH\log(n+1))$ time & $O(n\log(n+1))$\\
+List graph triangles & $O(nH^2)$ expected time & $O(n)$ expected\\
+\bottomrule
+\end{tabular}
+\caption{Costs after adjacency construction. $H=\min\{n,(1+R/k)^d\}$.
+Triangle listing assumes expected constant-time adjacency membership.
+The construction theorem has its own hash expectation.}
+\label{tab:costs}
+\end{table}
+
+Breadth-first search suffices for equal-cost edges. Dijkstra's algorithm
+\cite{dijkstra} applies to nonnegative weights; a binary heap implements
+the displayed bound. In the included lazy-heap version there are
+$O(m)$ successful insertions, whose $O(\log(m+1))$ cost is
+$O(\log(n+1))$ for a simple graph. The sparse fixed-$\rho$ regime also
+uses linear auxiliary space, including the heap.
+
+For triangle listing, order vertices by index. At vertex $u$, enumerate
+pairs of neighbors $u<v<w$ and test whether $vw$ is an edge. Each
+triangle is output once, and the total number of candidate neighbor
+pairs is at most $n\binom\Delta2$. The implementation uses dictionary
+membership; sorting higher-index neighbor lists does not exceed this
+overall bound once an $O(n+m)$ setup term is included. More sophisticated
+triangle algorithms exploit arboricity, for example the classical
+$O(m\,a(G))$ algorithm of Chiba and Nishizeki \cite{chiba}; the simple
+routine here is sufficient for the bounded-degree conclusion.
+
+These are consequences of smaller input structure, not a replacement for
+Dijkstra. Even with bounded degree, shortest routes may cross the whole
+network. No constant query-time result or universally faster exact
+shortest-path algorithm follows from the degree bound. Repeated queries
+may justify additional indexing, but their guarantees require a
+separate analysis.
+
+\section{Winding roads and straight graph drawings}
+\begin{figure}[p]
+\centering
+\includegraphics[width=.98\linewidth]{road_network.pdf}
+\caption{A curved-road network and the same weighted graph drawn with
+straight edges. Each number is the original road's arc length in
+illustrative kilometers, retained in both panels. The highlighted route
+has cost approximately $6.70$ km in either drawing. These six-junction
+coordinates illustrate weighted-graph abstraction; they are separate
+from the jittered-lattice experiments.}
+\label{fig:roads}
+\end{figure}
+
+A road can be represented by a curve $\gamma_e:[0,1]\to\R^2$ with arc
+length
+\[
+ w(e)=\int_0^1\|\gamma_e'(t)\|_2\,dt.
+\]
+Only the road endpoints are graph vertices unless extra junctions are
+explicitly introduced. Replacing the curve by a straight segment in a
+drawing leaves the weighted adjacency relation unchanged. Therefore it
+leaves every path cost and the set of optimal routes unchanged.
+
+Replacing the \emph{weight} by the chord length is a different operation.
+For the example in Figure~\ref{fig:roads}, actual arc lengths select
+$A\to C\to E\to F$, while chord weights select $A\to B\to D\to F$.
+Both are valid runs of Dijkstra on different weighted inputs. The
+implementation approximates each cubic Bezier road's length by summing
+600 line segments per cubic piece. Doubling that resolution changes edge
+lengths by less than the $10^{-5}$ relative tolerance used in validation.
+The displayed lengths are rounded; optimization uses unrounded values.
+
+The minimum-distance premise here applies to \emph{junctions}, not to
+every continuum point drawn on a road. A literal minimum gap between all
+physical positions would rule out such continuous curves as sets of
+physical positions. Curved edges in this paper are geometric
+representations of travel costs between discrete vertices, consistent
+with the distinction made in the original minimum-distance manuscript
+\cite{landers}. This distinction prevents a graph-modeling assumption
+from being mistaken for a new law of motion.
+
+\section{Reproducible structural experiment}
+\paragraph{Design.}
+The experiment measures counts, not elapsed-time speedups. Begin with an
+$s\times s$ square lattice of spacing $1.2$ and independently perturb
+each coordinate by at most $0.07$, using NumPy's generator with seed
+2026. Distinct lattice sites differ in some coordinate by at least
+$1.2$ before perturbation, and hence by at least $1.06$ afterward.
+Thus every instance satisfies the promise with $k=1$ by construction.
+The radius graph contains all pairs at distance at most $R$.
+
+The growth sweep uses $s=8,12,20,32,48$ and $R/k=1.7$.
+The range sweep fixes $s=28$ and varies $R/k$ from $1.01$ to $5$ at seven
+saved values. This is one synthetic family and one seed, not a
+distributional average or a model of a particular road network. Increasing
+$s$ expands the occupied region. Varying $R$ changes connectivity without
+changing the underlying points or separation.
+
+\begin{table}[tbp]
+\centering\small
+\begin{tabular}{rrrrr}
+\toprule
+$n$ & Edges & Triangles & Grid distance checks & All pairs\\
+\midrule
+64 & 165 & 106 & 396 & 2,016\\
+144 & 397 & 266 & 996 & 10,296\\
+400 & 1,137 & 754 & 2,936 & 79,800\\
+1,024 & 2,951 & 1,934 & 8,044 & 523,776\\
+2,304 & 6,747 & 4,470 & 18,294 & 2,653,056\\
+\bottomrule
+\end{tabular}
+\caption{Saved structural counts at $k=1$, $R=1.7$. Grid checks count
+pairwise distance evaluations, excluding empty-cell dictionary probes;
+they are not total operation counts or timings.}
+\label{tab:experiment}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{network_growth.pdf}
+\caption{Growing the network at fixed $R/k=1.7$. Left: candidate distance
+checks versus the quadratic all-pairs baseline. Right: edge and triangle
+counts per vertex remain bounded, in agreement with the theorem. Lines
+join measured instances; they are not fitted complexity estimates.}
+\label{fig:growth}
+\end{figure}
+
+\paragraph{Results.}
+At $n=2{,}304$, local construction evaluates $18{,}294$ candidate distances
+instead of $2{,}653{,}056$ unordered pairs, about $145$ times fewer
+distance evaluations. This ratio does not claim a $145$-fold runtime
+improvement: the implementation also pays for cell probes, hashing,
+Python loops, and adjacency storage. The instance has $6{,}747$ edges
+and $4{,}470$ triangles. Figure~\ref{fig:growth} shows the bounded
+per-vertex counts as the region expands.
+
+Increasing $R/k$ raises the observed degree and the number of triangles
+per vertex (Figure~\ref{fig:range}). At $R/k=1.01$ the instance has no
+edges; the guaranteed separation is $1.06$. This also illustrates why
+separation does not imply connectivity. The analytic area bound remains
+above the observed degree and is not presented as an accurate numerical
+predictor.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{range_sensitivity.pdf}
+\caption{Varying $R/k$ on a fixed set of $784$ vertices. Left: observed
+maximum degree and the planar bound $(1+2R/k)^2-1$. Right: graph triangles
+per vertex. The locality ratio controls how restrictive the separation
+promise is; the loose area bound makes no tight-constant claim.}
+\label{fig:range}
+\end{figure}
+
+\paragraph{Independent checks.}
+The validation script runs 80 grouped checks. It compares grid-produced
+adjacency with independently enumerated all-pairs graphs and compares
+triangle lists with exhaustive triples. It checks degree, edge, and
+triangle bounds, exact-cutoff examples, negative cell coordinates,
+disconnected graphs, empty inputs, and single vertices. Dijkstra distances
+are compared with SciPy's Floyd--Warshall implementation. The road
+example additionally checks arc lengths against chords, winner changes
+under chord weighting, and length-refinement agreement. These checks
+support the implementation on the tested instances; the theorems provide
+the general claims.
+
+\paragraph{Arithmetic and reproducibility.}
+The proofs use exact real arithmetic and constant-cost floor operations.
+The code uses IEEE floating-point coordinates, cell indices, and
+comparisons without an acceptance tolerance. Instances extremely close
+to a numerical cutoff or a cell boundary may require robust predicates
+or higher precision in an application. Detailed cost accounting for
+arbitrary-precision coordinates is outside the stated model. Reproduce
+from the repository root with
+\begin{verbatim}
+python -m graph_traversal.experiment
+python -m graph_traversal.validate
+python -m graph_traversal.figures
+\end{verbatim}
+The directory contains raw counts, environment metadata, source code,
+and vector figures. Build this manuscript with two runs of
+\texttt{pdflatex} from its own directory. No downloaded dataset is needed.
+
+\section{Relation to existing algorithms and the minimum-distance work}
+The packing proof is a standard disjoint-ball argument, and the
+construction is a uniform-grid spatial hash. Dijkstra's weighted
+shortest-path algorithm \cite{dijkstra} is used unchanged. Triangle
+enumeration belongs to a broader literature on sparse graphs, including
+arboricity-based bounds \cite{chiba}. The contribution here is a
+self-contained account of which algorithmic bounds follow from the
+minimum-distance premise \emph{after} locality and fixed dimension are
+made explicit, together with an illustrated and reproducible realization.
+
+Geometric shortest-path algorithms can also exploit structure without a
+minimum-separation promise. For example, Cabello and Jej\v{c}i\v{c}
+\cite{cabello} give an $O(n\log n)$ single-source algorithm for
+unweighted unit-disk graphs, even when the graph may be dense. That result
+uses the geometric representation to avoid explicitly processing every
+edge. Its Euclidean-weighted setting also differs from arbitrary
+curved-road costs. Our bounded-degree specialization neither supersedes
+those algorithms nor establishes that separation is necessary for fast
+routing.
+
+The project's one-stop routing note \cite{onestop} obtains fast repeated
+queries in a different way. Fixed terminals and candidate stops produce
+a scalar feasibility threshold per stop; sorting thresholds and storing
+prefix optima supports logarithmic cutoff queries. That result does not
+require local edge density and does not establish a general multistop
+shortest-path index. Likewise, the triangle-shape exclusion probabilities
+in the companion note \cite{triangles} describe sampling laws over
+shapes, not graph-triangle counts on an already separated vertex set.
+
+\section{Conclusion}
+A minimum separation $k$ bounds how many vertices fit in a fixed
+Euclidean neighborhood. Adding an endpoint connection radius $R$
+turns that geometric bound into a degree bound. At fixed dimension and
+fixed $R/k$, the resulting graphs have linearly many edges and graph
+triangles, admit expected linear-time radius-graph construction, and
+support the usual sparse-graph traversal and shortest-path bounds.
+Without locality, the same separated points can support a complete
+graph. The relevant algorithmic parameter is therefore $R/k$, not $k$
+in isolation.
+
+\begin{thebibliography}{9}
+\bibitem{dijkstra}
+E. W. Dijkstra, A note on two problems in connexion with graphs,
+\emph{Numerische Mathematik} \textbf{1} (1959), 269--271.
+\href{https://doi.org/10.1007/BF01386390}{doi:10.1007/BF01386390}.
+
+\bibitem{chiba}
+N. Chiba and T. Nishizeki, Arboricity and subgraph listing algorithms,
+\emph{SIAM Journal on Computing} \textbf{14}(1) (1985), 210--223.
+\href{https://doi.org/10.1137/0214017}{doi:10.1137/0214017}.
+
+\bibitem{cabello}
+S. Cabello and M. Jej\v{c}i\v{c}, Shortest paths in intersection graphs
+of unit disks, \emph{Computational Geometry} \textbf{48}(4) (2015),
+360--367.
+\href{https://doi.org/10.1016/j.comgeo.2014.12.003}{doi:10.1016/j.comgeo.2014.12.003}.
+
+\bibitem{landers}
+J. R. Landers, \emph{Consequences of Minimum Distance in Mathematics
+and Physics}, project manuscript (2026),
+\href{https://github.com/jonland82/minimum-distance-analytical-mechanics/blob/master/consequences_of_minimum_distance.tex}{source}.
+
+\bibitem{onestop}
+J. R. Landers, \emph{One-stop routing with a changing distance cutoff},
+project note (2026),
+\href{https://github.com/jonland82/minimum-distance-analytical-mechanics/blob/master/routing_note/one_stop_routing.tex}{source}.
+
+\bibitem{triangles}
+J. R. Landers, \emph{How large must a triangle be to survive? Minimum-distance
+exclusion under two sampling laws}, project note (2026),
+\href{https://github.com/jonland82/minimum-distance-analytical-mechanics/blob/master/triangle_companion/triangle_exclusion.tex}{source}.
+\end{thebibliography}
+\end{document}
