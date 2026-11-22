@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,xcolor,tcolorbox}
+\tcbuselibrary{skins}
+\usepackage[hidelinks]{hyperref}
+\definecolor{routegreen}{HTML}{128675}
+\definecolor{ink}{HTML}{213337}
+\newtcolorbox{takeaway}{enhanced,colback=routegreen!5!white,
+ colframe=routegreen!5!white,colupper=ink,boxrule=0pt,
+ borderline west={2pt}{0pt}{routegreen},arc=2mm,boxsep=0pt,
+ left=4mm,right=4mm,top=2.5mm,bottom=2.5mm,
+ before skip=7pt,after skip=7pt,fontupper=\sffamily\small}
+\newtheorem{theorem}{Theorem}
+\title{Shortest-Path Error from an Edge-Cost Floor}
+\author{Jonathan R. Landers}
+\date{November 22, 2026}
+\makeatletter
+\renewcommand{\@maketitle}{\begin{center}
+ {\LARGE\@title\par}\vskip .6em
+ {\large\@author\par}\vskip .3em
+ {\@date\par}\end{center}\vskip .4em}
+\makeatother
+\begin{document}
+\maketitle
+
+A routing model may assign very small costs to some edges. Suppose we
+raise every edge below a chosen threshold $k$ up to $k$, then compute a
+shortest path. How much can the reported distance increase, and how good
+is the selected route when measured with the original costs?
+
+\section*{1. The rounding rule}
+Let $G=(V,E)$ be a finite directed or undirected graph with $n\ge2$
+vertices and finite costs $w(e)\ge0$. Fix distinct vertices $s,t$ with a
+route from $s$ to $t$, and choose $k>0$. Define
+\begin{equation}\label{eq:floor}
+ \widetilde w(e)=\max\{w(e),k\},\qquad
+ \delta(e)=\widetilde w(e)-w(e)=\max\{0,k-w(e)\}.
+\end{equation}
+Thus $0\le\delta(e)\le k$. For any path $P$, write
+\[
+ L(P)=\sum_{e\in P}w(e),\qquad
+ D(P)=\sum_{e\in P}\delta(e),\qquad
+ \widetilde L(P)=L(P)+D(P).
+\]
+Let $P^*$ be a simple original shortest path with cost $d=L(P^*)$.
+Let $\widehat P$ minimize the modified cost, and put
+$\widetilde d=\widetilde L(\widehat P)$. Nonnegative original weights
+allow a simple $P^*$ by removing cycles.
+
+\section*{2. Two errors, one bound}
+\begin{theorem}
+If $P^*$ contains $q$ edges with original cost below $k$, then
+\begin{align}
+ 0\le\widetilde d-d&\le D(P^*)\le qk,\label{eq:distance}\\
+ 0\le L(\widehat P)-d&\le D(P^*)-D(\widehat P)\le D(P^*)\le qk.
+ \label{eq:route}
+\end{align}
+\end{theorem}
+\begin{takeaway}
+Each rounded edge on an original optimal route adds at most $k$ to the
+error bound, covering both the reported distance and the chosen route.
+\end{takeaway}
+\begin{proof}
+Every path becomes at least as expensive, so $\widetilde d\ge d$.
+Optimality of $\widehat P$ under the modified costs gives
+\[
+ L(\widehat P)+D(\widehat P)
+ =\widetilde d\le\widetilde L(P^*)=d+D(P^*).
+\]
+This proves both upper bounds; $L(\widehat P)\ge d$ proves the second
+lower bound. Only the $q$ rounded edges contribute to $D(P^*)$, each
+by at most $k$.
+\end{proof}
+
+\newpage
+\section*{3. A bound available before solving the problem}
+A simple path has at most $n-1$ edges, so $q\le n-1$ and
+\begin{equation}\label{eq:universal}
+ \boxed{\quad
+ 0\le\widetilde d-d\le(n-1)k,\qquad
+ 0\le L(\widehat P)-d\le(n-1)k.
+ \quad}
+\end{equation}
+For a desired additive tolerance $\varepsilon>0$, choosing
+$k\le\varepsilon/(n-1)$ guarantees both errors are at most $\varepsilon$.
+The path-specific bound \eqref{eq:distance} is sharper when few edges
+are rounded or their costs are close to $k$.
+
+The reported-distance bound is attained by a chain of $n-1$ zero-cost
+edges: its original distance is zero and its modified distance is
+$(n-1)k$. That chain still selects the same route, so its route error is
+zero. Reported-distance inflation and route error measure different effects.
+
+\section*{4. A route can change}
+Take three vertices $s,u,t$ with costs $w(s,u)=w(u,t)=0.1$ and
+$w(s,t)=1$. The original optimum uses $s\to u\to t$ and has cost $0.2$.
+With $k=1$, the two-edge route costs $2$, while the direct edge costs $1$.
+The modified optimum therefore selects $s\to t$. Its reported distance
+and its original cost are both $1$, giving errors of $0.8$.
+
+Replacing $0.1$ by any $0<\eta<1/2$ gives a selected-route ratio
+$L(\widehat P)/d=1/(2\eta)$, which grows arbitrarily large as
+$\eta\to0$. The additive bound holds throughout. A relative bound can
+use an additional lower scale: if every edge satisfies $w(e)\ge a>0$,
+then with $c=\max\{1,k/a\}$,
+\[
+ \widetilde w(e)\le c\,w(e)
+ \quad\Longrightarrow\quad
+ L(\widehat P)\le\widetilde d\le c\,d.
+\]
+
+\section*{5. What the floor changes}
+The rule \eqref{eq:floor} changes edge costs while preserving vertex
+locations and graph connectivity. Two locations one metre apart can be
+charged ten metres for their connecting edge; their physical separation
+remains one metre. Bounds based on geometric packing use actual vertex
+separation, whereas the bounds here follow from accumulated cost increases.
+
+The floor also gives a direct bound on hop count: any path with modified
+cost at most $U$ contains at most $\lfloor U/k\rfloor$ edges, since each
+edge costs at least $k$. This can limit the depth of a search with a known
+cost budget; the number of possible routes also depends on branching.
+
+\begin{takeaway}
+Raising small costs to $k$ gives an explicit additive error budget and a
+hop-count bound for cost-limited paths; the selected route can be evaluated
+afterward using the original edge costs.
+\end{takeaway}
+\end{document}

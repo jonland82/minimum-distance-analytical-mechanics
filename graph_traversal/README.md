@@ -4,6 +4,8 @@ By Jonathan R. Landers, November 22, 2026.
 
 **[Read the paper](minimum_separation_traversal.pdf)** · [LaTeX source](minimum_separation_traversal.tex)
 
+**Companion note:** [Shortest-Path Error from an Edge-Cost Floor](edge_floor_error.pdf) · [LaTeX source](edge_floor_error.tex). A self-contained two-page derivation of additive distance and route-error bounds when costs below `k` are raised to `k`, with a worked example, relative bounds, and a hop-count consequence.
+
 For planar vertices separated by at least `k`, with edges joining only endpoints at distance at most `R`, disjoint-disk packing gives
 
 ```text
