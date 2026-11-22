@@ -4,6 +4,7 @@ Run from the repository root: python -m graph_traversal.workflow
 """
 import textwrap
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
@@ -11,6 +12,9 @@ from .figures import GREEN, GRID, INK, MUTED, save
 
 
 def run():
+    # Use real LaTeX for formula rows and matching Computer Modern math
+    # for inline symbols in the descriptive text.
+    mpl.rcParams["mathtext.fontset"] = "cm"
     fig, ax = plt.subplots(figsize=(12, 12.8))
     fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
     ax.set(xlim=(0, 12), ylim=(0, 12.8))
@@ -23,24 +27,24 @@ def run():
     ax.text(.55, 11.26, "Solid arrows: dependencies     Dashed links: supporting context and evidence",
             fontsize=10, color=MUTED)
 
-    left, width, height = .55, 7.05, 1.42
+    left, width, height = .55, 7.05, 1.56
     centers = [10.18, 8.36, 6.54, 4.72, 2.90]
     steps = [
         ("01", "Set the rules", "Model",
-         "Vertices stay at least k apart, and edges join endpoints at most R apart.",
-         r"Fixed dimension $d$; connection-to-separation ratio $\rho = R/k$"),
+         r"Vertices stay at least $k$ apart, and edges join endpoints at most $R$ apart.",
+         r"Fixed dimension $d$; connection-to-separation ratio $\displaystyle\rho = \frac{R}{k}$"),
         ("02", "Count nearby vertices", "Theorem 2 · Packing",
          "Each vertex needs space around it, so only a bounded number fit in a neighborhood.",
-         r"Local occupancy: $|P \cap B(x,r)| \leq (1 + 2r/k)^d$"),
+         r"Local occupancy: $\displaystyle |P \cap B(x,r)| \leq \left(1 + \frac{2r}{k}\right)^d$"),
         ("03", "Bound the graph's size", "Corollary 3",
-         "Apply the neighborhood bound at radius R to limit neighbors, edges, and graph triangles.",
-         r"$\Delta \leq (1+2R/k)^d-1$; fixed $d,\,R/k$ gives $m,T=O(n)$"),
+         r"Apply the neighborhood bound at radius $R$ to limit neighbors, edges, and graph triangles.",
+         r"$\displaystyle\Delta \leq \left(1+\frac{2R}{k}\right)^d-1$; fixed $d,\rho$: $m,T=\mathcal{O}(n)$"),
         ("04", "Build the local graph", "Theorem 4 · Construction",
          "A spatial grid checks nearby candidates to construct the full radius graph efficiently.",
-         r"Fixed $d,\,R/k$: expected $O(n)$ construction with spatial hashing"),
+         r"Fixed $d,\rho$: expected $\mathcal{O}(n)$ construction with spatial hashing"),
         ("05", "Traverse and find routes", "Standard algorithms",
          "The sparse graph supports efficient traversal, triangle listing, and weighted shortest paths.",
-         r"BFS: $O(n)$   ·   Dijkstra: $O(n\log n)$   ·   triangle listing: expected $O(n)$"),
+         r"BFS: $\mathcal{O}(n)$\quad Dijkstra: $\mathcal{O}(n\log n)$\quad Triangles: expected $\mathcal{O}(n)$"),
     ]
 
     def rounded(x, y, w, h, face, edge="none"):
@@ -61,8 +65,8 @@ def run():
         ax.text(left+.22, bottom+height-.64,
                 textwrap.fill(sentence, width=78), fontsize=11.1,
                 va="top", linespacing=1.45)
-        ax.text(left+.22, bottom+.18, formula, fontsize=9.9,
-                va="center", color=INK)
+        ax.text(left+.22, bottom+.27, formula, fontsize=12,
+                va="center", color=INK, usetex=True, fontfamily="serif")
 
     spine = left+width/2
     for upper, lower in zip(centers, centers[1:]):

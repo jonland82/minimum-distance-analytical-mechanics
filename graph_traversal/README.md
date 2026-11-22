@@ -35,6 +35,8 @@ python -m graph_traversal.figures
 python -m graph_traversal.workflow
 ```
 
+The workflow uses LaTeX for its formula rows; rendering requires LaTeX and `dvipng`, available through MiKTeX or TeX Live.
+
 Build the paper from this directory:
 
 ```powershell
