@@ -1,0 +1,186 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div id="winding-network">
+  <script>
+    (() => {
+      const root=document.getElementById('winding-network');
+      if(!getComputedStyle(root).getPropertyValue('--font-size-base').trim())root.classList.add('wn-standalone');
+    })();
+  </script>
+  <style>
+    #winding-network.wn-standalone {
+      color-scheme:light dark;
+      --font-size-base:14px;
+      --background:light-dark(#fafaf8,#171b1d);
+      --foreground:light-dark(#202e31,#e4eceb);
+      --muted-foreground:light-dark(#6e7c7e,#98aaa9);
+      --border:light-dark(#cdd8d5,#40504e);
+      --viz-series-1:light-dark(#138472,#55c7ac);
+      font:400 14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      max-width:860px;
+      margin:48px auto;
+      padding:0 32px;
+      box-sizing:border-box;
+      background:var(--background);
+    }
+    body:has(#winding-network.wn-standalone) { margin:0; background:light-dark(#fafaf8,#171b1d); color-scheme:light dark; }
+    #winding-network.wn-standalone h2 { margin:0; font-size:28px; line-height:1.25; font-weight:500; letter-spacing:-.8px; }
+    #winding-network.wn-standalone .wn-header { gap:20px; }
+    #winding-network.wn-standalone .wn-controls { gap:4px; }
+    #winding-network.wn-standalone .btn {
+      appearance:none; font-family:inherit; font-size:13px; font-weight:500; line-height:1.4;
+      border:1px solid transparent; border-radius:8px; padding:10px 16px;
+      background:transparent; color:var(--muted-foreground); cursor:pointer;
+      transition:background .18s,color .18s;
+    }
+    #winding-network.wn-standalone .btn:hover { background:light-dark(#e9eeeb,#25302e); color:var(--foreground); }
+    #winding-network.wn-standalone .btn[aria-pressed=true] { background:var(--foreground); color:var(--background); }
+    #winding-network.wn-standalone .btn:focus-visible { outline:2px solid var(--viz-series-1); outline-offset:3px; }
+    #winding-network.wn-standalone .text-small { font-size:12px; }
+    #winding-network.wn-standalone .text-muted { color:var(--muted-foreground); }
+    #winding-network.wn-standalone .tabular-nums { font-variant-numeric:tabular-nums; }
+    #winding-network.wn-standalone .wn-result { font-weight:500; }
+    @media(max-width:480px) {
+      #winding-network.wn-standalone { margin:28px auto; padding:0 20px; }
+      #winding-network.wn-standalone h2 { font-size:24px; }
+    }
+    #winding-network { display:grid; gap:calc(var(--font-size-base) * 1.25); color:var(--foreground); }
+    #winding-network .wn-header { display:grid; gap:calc(var(--font-size-base) * .5); }
+    #winding-network .wn-controls,#winding-network .wn-footer,#winding-network .wn-legend { display:flex; flex-wrap:wrap; align-items:center; gap:calc(var(--font-size-base) * .75); }
+    #winding-network .wn-footer { justify-content:space-between; }
+    #winding-network .wn-route { display:grid; gap:calc(var(--font-size-base) * .25); }
+    #winding-network .wn-legend { gap:calc(var(--font-size-base) * 1.25); }
+    #winding-network .wn-swatch { display:inline-block; width:22px; height:3px; margin-right:7px; vertical-align:middle; background:var(--muted-foreground); }
+    #winding-network .wn-swatch.active { background:var(--viz-series-1); height:4px; }
+    #winding-network .wn-plot { display:block; width:100%; height:390px; overflow:visible; }
+    #winding-network .wn-edge { fill:none; stroke:var(--muted-foreground); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; opacity:.58; }
+    #winding-network .wn-edge.active { stroke:var(--viz-series-1); stroke-width:4; opacity:1; }
+    #winding-network .wn-halo { fill:none; stroke:var(--viz-series-1); stroke-width:13; stroke-linecap:round; stroke-linejoin:round; opacity:.09; pointer-events:none; }
+    #winding-network .wn-plot text { font-family:inherit; fill:var(--foreground); }
+    #winding-network .wn-weight { paint-order:stroke; stroke:var(--background); stroke-width:7px; stroke-linejoin:round; }
+    #winding-network .wn-node { fill:var(--background); stroke:var(--border); stroke-width:1.5; }
+    #winding-network .wn-terminal { fill:var(--foreground); stroke:none; }
+    #winding-network .wn-terminal-label { fill:var(--background) !important; }
+    #winding-network .wn-caption { fill:var(--muted-foreground) !important; }
+  </style>
+  <div class="wn-header">
+    <h2>Winding roads, straight edges</h2>
+    <div class="wn-controls" role="group" aria-label="Network view">
+      <button type="button" class="btn" data-view="road" aria-pressed="true">Road geometry</button>
+      <button type="button" class="btn" data-view="graph" aria-pressed="false">Graph abstraction</button>
+    </div>
+  </div>
+  <svg class="wn-plot" role="img" aria-labelledby="wn-title wn-desc">
+    <title id="wn-title">Winding road network and its straight-edge abstraction</title>
+    <desc id="wn-desc">Six labeled junctions connect eight roads. The shortest route from A to F is highlighted. Changing views straightens the roads while preserving connectivity, actual road lengths, and the shortest route. All distances are illustrative kilometers.</desc>
+    <g class="wn-halos"></g><g class="wn-edges"></g><g class="wn-weights"></g><g class="wn-nodes"></g>
+  </svg>
+  <div class="wn-footer">
+    <div class="wn-route" aria-live="polite">
+      <span class="text-small text-muted">Shortest route · A to F</span>
+      <span class="wn-result tabular-nums"></span>
+    </div>
+    <div class="wn-legend text-small">
+      <span><span class="wn-swatch active"></span>Shortest route</span>
+      <span><span class="wn-swatch"></span>Other roads</span>
+    </div>
+  </div>
+  <span class="text-small text-muted">Edge labels = actual road length in km · Illustrative network</span>
+</div>
+<script>
+(() => {
+  const root=document.getElementById('winding-network');
+  const svg=root.querySelector('.wn-plot');
+  const groups=['halos','edges','weights','nodes'].map(name=>root.querySelector('.wn-'+name));
+  const buttons=[...root.querySelectorAll('[data-view]')];
+  const output=root.querySelector('.wn-result');
+  const ns='http://www.w3.org/2000/svg';
+  const pts={A:[60,210],B:[245,95],C:[255,320],D:[465,110],E:[465,315],F:[660,210]};
+  const raw=[
+    ['A','B',[[70,110,170,230,145,125],[120,25,245,40,245,95]],[-12,-17]],
+    ['B','D',[[300,20,315,185,365,85],[410,10,400,130,465,110]],[0,-20]],
+    ['A','C',[[110,240,190,320,255,320]],[0,25]],
+    ['C','E',[[330,355,380,285,465,315]],[0,27]],
+    ['E','F',[[545,330,560,240,660,210]],[10,22]],
+    ['D','F',[[540,75,540,220,660,210]],[12,-19]],
+    ['C','D',[[250,230,390,245,465,110]],[-8,-17]],
+    ['D','E',[[500,185,420,240,465,315]],[27,0]]
+  ];
+  const edges=raw.map(([a,b,segments,offset])=>{
+    let start=pts[a];const samples=[start];
+    segments.forEach(s=>{
+      for(let i=1;i<=100;i++) {
+        const t=i/100,u=1-t;
+        samples.push([u*u*u*start[0]+3*u*u*t*s[0]+3*u*t*t*s[2]+t*t*t*s[4],u*u*u*start[1]+3*u*u*t*s[1]+3*u*t*t*s[3]+t*t*t*s[5]]);
+      }
+      start=s.slice(4);
+    });
+    const length=samples.slice(1).reduce((sum,p,i)=>sum+Math.hypot(p[0]-samples[i][0],p[1]-samples[i][1]),0)/100;
+    return {a,b,samples,length,offset};
+  });
+  const distance={A:0},previous={},remaining=new Set(Object.keys(pts));
+  while(remaining.size) {
+    const a=[...remaining].sort((a,b)=>(distance[a]??Infinity)-(distance[b]??Infinity))[0];
+    remaining.delete(a);
+    for(const edge of edges) {
+      const b=edge.a===a?edge.b:edge.b===a?edge.a:null;
+      if(!b||!remaining.has(b))continue;
+      const candidate=distance[a]+edge.length;
+      if(candidate<(distance[b]??Infinity)){distance[b]=candidate;previous[b]=a;}
+    }
+  }
+  const route=['F'];while(route[0]!=='A')route.unshift(previous[route[0]]);
+  const selected=new Set(route.slice(1).map((b,i)=>[route[i],b].sort().join('')));
+  output.textContent=route.join(' → ')+'   ·   '+distance.F.toFixed(2)+' km';
+  let view='road',blend=0,animation;
+  function make(tag,attrs,parent,text) {
+    const element=document.createElementNS(ns,tag);
+    for(const [k,v] of Object.entries(attrs))element.setAttribute(k,v);
+    if(text!==undefined)element.textContent=text;
+    parent.appendChild(element);return element;
+  }
+  function draw() {
+    const w=root.clientWidth;
+    svg.setAttribute('viewBox',`0 0 ${w} 390`);
+    const x=p=>24+(w-48)*p/720;
+    groups.forEach(g=>g.replaceChildren());
+    edges.forEach(edge=>{
+      const active=selected.has([edge.a,edge.b].sort().join(''));
+      const samples=edge.samples.map((p,i)=>{
+        const t=i/(edge.samples.length-1),a=pts[edge.a],b=pts[edge.b];
+        return [x(p[0]*(1-blend)+(a[0]+(b[0]-a[0])*t)*blend),p[1]*(1-blend)+(a[1]+(b[1]-a[1])*t)*blend];
+      });
+      const d=samples.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+','+p[1].toFixed(2)).join(' ');
+      if(active)make('path',{d,class:'wn-halo'},groups[0]);
+      make('path',{d,class:'wn-edge'+(active?' active':''),'data-tooltip':`${edge.a}–${edge.b}: ${edge.length.toFixed(2)} km`},groups[1]);
+      if(w>420||active||edge.a==='B') {
+        const p=samples[Math.floor(samples.length/2)];
+        make('text',{x:p[0]+edge.offset[0],y:p[1]+edge.offset[1],'text-anchor':'middle',class:'wn-weight text-small tabular-nums'},groups[2],edge.length.toFixed(2));
+      }
+    });
+    Object.entries(pts).forEach(([name,p])=>{
+      const terminal=name==='A'||name==='F';
+      make('circle',{cx:x(p[0]),cy:p[1],r:terminal?16:14,class:terminal?'wn-terminal':'wn-node'},groups[3]);
+      make('text',{x:x(p[0]),y:p[1],'text-anchor':'middle','dominant-baseline':'central',class:terminal?'wn-terminal-label':''},groups[3],name);
+      if(terminal)make('text',{x:x(p[0]),y:p[1]+36,'text-anchor':'middle',class:'wn-caption text-small'},groups[3],name==='A'?'Start':'Finish');
+    });
+  }
+  function setView(next,animate) {
+    view=next;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===view)));
+    cancelAnimationFrame(animation);
+    const target=view==='graph'?1:0,from=blend;
+    if(!animate||matchMedia('(prefers-reduced-motion: reduce)').matches){blend=target;draw();return;}
+    const begin=performance.now();
+    function frame(now){const t=Math.min(1,(now-begin)/550),ease=t*t*(3-2*t);blend=from+(target-from)*ease;draw();if(t<1)animation=requestAnimationFrame(frame);}
+    animation=requestAnimationFrame(frame);
+  }
+  function restore(state){const saved=state?.modelContent?.view;setView(saved==='graph'?'graph':'road',false);}
+  buttons.forEach(button=>button.addEventListener('click',()=>{
+    setView(button.dataset.view,true);
+    window.openai?.setWidgetState({modelContent:{view,route,roadLengthKm:Number(distance.F.toFixed(2))},privateContent:null})?.catch(()=>{});
+  }));
+  restore(window.openai?.widgetState);
+  window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState)restore(event.detail.globals.widgetState);});
+  new ResizeObserver(draw).observe(root);
+})();
+</script>
