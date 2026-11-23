@@ -1,21 +1,20 @@
 # Consequences of Minimum Distance
 
-What follows if distinct spatial positions are separated by at least a distance `k`? A triangle fits when its shortest side reaches that cutoff. The same threshold lets a routing index answer repeated queries without scanning every candidate stop. A separate physical question starts with waves on a lattice and asks what their dispersion would imply for photon timing.
+What follows if distinct spatial positions are separated by at least a distance `k`? A triangle fits when its shortest side reaches that cutoff. A related routing question asks how compactly we can summarize road costs as a minimum edge charge changes. A separate physical question starts with waves on a lattice and asks what their dispersion would imply for photon timing.
 
-**[Project website](https://jonland82.github.io/minimum-distance-analytical-mechanics/)** · **[Original paper](consequences_of_minimum_distance.pdf)** · **[Triangle paper](triangle_companion/triangle_exclusion.pdf)** · **[Routing paper](routing_note/one_stop_routing.pdf)** ? **[Compact road shortcuts](variable_floor_compression/chain_compression.pdf)** · **[Dynamics note](dynamics_study/dynamics_note.pdf)** · **[Photon-timing companion](companion_note/photon_timing_companion.pdf)**
+**[Project website](https://jonland82.github.io/minimum-distance-analytical-mechanics/)** · **[Original paper](consequences_of_minimum_distance.pdf)** · **[Triangle paper](triangle_companion/triangle_exclusion.pdf)** · ? **[Compact road shortcuts](variable_floor_compression/chain_compression.pdf)** · **[Dynamics note](dynamics_study/dynamics_note.pdf)** · **[Photon-timing companion](companion_note/photon_timing_companion.pdf)**
 
 By Jonathan R. Landers.
 
 ## Research threads
 
 - **Geometry.** Uniform discreteness restricts triangles and bisection and makes continuous point trajectories from connected time intervals constant. At every diameter above the cutoff, angle-uniform right triangles have a higher excluded fraction than triangles sampled uniformly by area in normalized side-length coordinates. The mean minimum surviving diameters are infinite and `4k log 2`, respectively.
-- **Routing.** Fix the terminals and candidate stops for a one-stop Euclidean route. Sorting by the shortest side of each route triangle and storing prefix minima reduces a cutoff query from linear to logarithmic time after `O(n log n)` preprocessing. At 100,000 synthetic stops and 1,000 queries, the indexed batch was **2.63× faster including construction** than cached exhaustive scans. Every answer agreed.
 - **Graph traversal.** Minimum vertex separation `k` and endpoint connection radius `R` bound local degree by `(1 + 2R/k)^2 - 1` in the plane. At fixed `R/k`, edges and graph triangles are linear in the number of vertices, supporting expected linear-time spatial construction and standard sparse-graph routing. The [paper, proofs, reproducible counts, and figures](graph_traversal/README.md) distinguish these consequences from what minimum separation alone permits.
 - **Chain compression.** When every edge is charged at least `k`, consecutive groups of sorted edge costs give compact shortcut summaries. Exact worst-case and average-error identities support optimal grouping for a chosen uniform tolerance and an additive certificate for the returned route. The [five-page note and reproducible figure](variable_floor_compression/README.md) include proofs and exact-arithmetic checks.
 - **Dynamics.** On a one-dimensional lattice with symmetric positive interactions, the leading group-speed reduction is quadratic, with effective length `Lambda >= k`. At the same spacing, stable signed interactions from centered finite-difference formulas suppress dispersion to arbitrarily high order. Phase and group speeds converge to the continuum on fixed bands strictly below the lattice cutoff.
 - **Photon timing.** If photons obey the positive-coupling wave law, published LHAASO, MAGIC/Crab, and H.E.S.S./PKS timing limits constrain `Lambda`. The strongest translated bound is about `9.91e-28 m`, roughly 61 million Planck lengths. These limits depend on the propagation model and the assumptions of the observations.
 
-The triangle probabilities depend on how shapes are sampled. The routing proof uses the cutoff for each candidate and holds for arbitrary fixed stops. The wave and timing results depend on the interaction law and the interpretation of the waves as photons.
+The triangle probabilities depend on how shapes are sampled. The wave and timing results depend on the interaction law and the interpretation of the waves as photons.
 
 ## Reading and repository map
 
@@ -23,11 +22,8 @@ The triangle probabilities depend on how shapes are sampled. The routing proof u
 | --- | --- |
 | [Original manuscript](consequences_of_minimum_distance.tex) | Geometry, positive-coupling wave formalism, conditional photon test |
 | [Triangle companion](triangle_companion/triangle_exclusion.tex) | Exclusion probabilities, strict ordering, and mean survival thresholds |
-| [Routing note](routing_note/one_stop_routing.tex) | Index construction, proof, comparison lower bound, and runtime experiments |
-| [Routing implementation](triangle_companion/one_stop.py) | Threshold index and exhaustive baseline |
 | [Compact Road Shortcuts with Guaranteed Error](variable_floor_compression/chain_compression.pdf) · [Source and checks](variable_floor_compression/README.md) | Five-page derivation of exact shortcut errors, optimal consecutive grouping, and route certificates |
 | [Graph traversal paper](graph_traversal/minimum_separation_traversal.pdf) · [Source and reproduction](graph_traversal/README.md) | Packing bounds, local graph construction, triangle counts, and weighted road illustration |
-| [Routing benchmark](routing_note/experiment.py) · [Recorded trials](routing_note/timings.csv) · [Runtime plots](routing_note/runtime.pdf) | Synthetic workloads, timing data, and build-cost crossover |
 | [Experimental companion](companion_note/README.md) | Formalism, three observational comparisons, sensitivity requirements |
 | [LHAASO analysis](analysis/README.md) | Independent exploratory cross-correlation, transformed published limits, provenance |
 | [Crab comparison](analysis/crab/README.md) | Published pulse-summary recalculation; no original event-level fit |
@@ -48,15 +44,6 @@ python -m venv .venv
 ```
 
 On macOS/Linux, replace `.venv/Scripts/python.exe` with `.venv/bin/python`.
-
-Run the routing experiment and regenerate its figures from the repository root:
-
-```powershell
-.venv/Scripts/python.exe -m routing_note.experiment
-.venv/Scripts/python.exe -m routing_note.figures
-```
-
-The experiment writes fresh measurements to `routing_note/timings.csv`. Run just the figure command to reproduce the plots from the recorded trials.
 
 The mathematical study needs no downloaded data:
 

@@ -13,7 +13,15 @@ The scope is finite nonnegative costs and repeated floor queries. Graph contract
 
 The note builds on the repository's [edge-floor error derivation](../graph_traversal/edge_floor_error.pdf) and [changing-cutoff routing note](../routing_note/one_stop_routing.pdf). Related literature includes approximate shortcut functions and stop-loss transforms. Originality remains provisional: the note makes no priority claim or claim of a new general shortest-path algorithm.
 
-## Reproduce
+## Argument workflow
+
+![From a changing floor to certified routes](figures/paper_workflow.png)
+
+[Vector PDF](figures/paper_workflow.pdf) · [SVG](figures/paper_workflow.svg)
+
+Regenerate with `python variable_floor_compression/workflow.py` from the repository root. Formula rendering uses LaTeX and dvipng, supplied by MiKTeX or TeX Live.
+
+## Reproduce the paper
 
 From the repository root:
 
