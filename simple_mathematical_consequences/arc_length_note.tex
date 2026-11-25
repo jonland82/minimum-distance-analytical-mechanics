@@ -1,0 +1,222 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=.8in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{3pt}
+\setlength{\abovedisplayskip}{7pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{7pt plus 2pt minus 2pt}
+\newcommand{\notesubsection}[1]{\par\addvspace{6pt}\noindent\textbf{#1.}\nobreakspace}
+\newcommand{\R}{\mathbb R}
+\newcommand{\asinh}{\operatorname{arsinh}}
+\hypersetup{pdftitle={How finely can we measure a curve?},pdfauthor={Jonathan R. Landers}}
+\begin{document}
+\begin{center}
+{\LARGE How finely can we measure a curve?\par}
+\smallskip
+{\large A parabola, a minimum distance, and a finite error\par}
+\medskip
+Jonathan R. Landers\quad---\quad November 25, 2026
+\end{center}
+
+\section{Arc length with a minimum distance}
+\notesubsection{A curve and its chords}
+A parabola makes a useful place to begin. Its equation is simple,
+its length is not just the distance between its endpoints, and its bend
+can be followed with a pencil. Start with $y=x^2$: the vertex is $(0,0)$,
+the curve opens upward, and reflection across the $y$-axis leaves it
+unchanged. How long is a chosen piece of it? And if distinct positions
+cannot be arbitrarily close, how accurately can little right triangles
+answer that question?
+
+We use dimensionless coordinates in a fixed length unit $\ell$:
+$x=X/\ell$, $y=Y/\ell$. Thus the physical parabola is $Y=X^2/\ell$.
+Lengths and errors below acquire physical units on multiplication by
+$\ell$; a physical minimum distance $k_{\rm phys}$ is written
+$k=k_{\rm phys}/\ell$. This convention keeps expressions such as
+$\sqrt{k}$ unambiguous.
+
+For a continuously differentiable graph $y=f(x)$ on $[a,b]$, its
+Euclidean arc length is
+\begin{equation}\label{eq:length}
+ L=\int_a^b\sqrt{1+f'(x)^2}\,dx.
+\end{equation}
+For the parabola, $f'(x)=2x$, and an antiderivative is
+\begin{equation}\label{eq:primitive}
+ F(x)=\frac{x}{2}\sqrt{1+4x^2}+\frac14\asinh(2x),
+ \qquad L=F(b)-F(a).
+\end{equation}
+Here $\asinh z=\log(z+\sqrt{1+z^2})$. On $[-3,3]$ this gives
+\begin{equation}\label{eq:exact}
+ L=3\sqrt{37}+\tfrac12\log(6+\sqrt{37})
+   =19.494177517\ldots\,.
+\end{equation}
+
+The integral has a concrete geometric origin. Choose
+$a=x_0<x_1<\cdots<x_N=b$, and join successive points
+$P_i=(x_i,f(x_i))$. The segment $P_{i-1}P_i$ is the hypotenuse of
+a right triangle with horizontal leg $\Delta x_i=x_i-x_{i-1}$ and
+vertical leg $|\Delta y_i|=|f(x_i)-f(x_{i-1})|$, using the corner
+$(x_i,f(x_{i-1}))$. The total chord length is
+\begin{equation}\label{eq:polygon}
+ L_N=\sum_{i=1}^N\sqrt{(\Delta x_i)^2+(\Delta y_i)^2}.
+\end{equation}
+Every chord is no longer than its intervening arc. Refining a partition
+cannot decrease $L_N$, and as its largest width tends to zero,
+$L_N\to L$. For $f(x)=x^2$, the factorization
+$\Delta y_i=(x_i+x_{i-1})\Delta x_i$ makes each summand
+$\Delta x_i\sqrt{1+(x_i+x_{i-1})^2}$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.97\linewidth]{figures/parabola_triangles.pdf}
+\par\smallskip
+\begin{minipage}{.95\linewidth}\small
+\textbf{Figure 1.} The smooth parabola and its chords; dotted legs complete
+the right triangles. Left: six chords over $[-3,3]$. Right: the central
+part of an eighteen-chord partition, where the smallest vertical leg is
+$h^2$. The panels have equal horizontal and vertical coordinate scales.
+\end{minipage}
+\end{figure}
+
+\notesubsection{When refinement has to stop}
+Now impose the hypothesis used in the minimum-distance papers
+\cite{landers,triangles}: distinct physical positions have Euclidean
+separation at least $k>0$. The smooth graph remains a reference curve;
+its entire continuum of points is not being declared physical. Suppose
+the three vertices of every approximating right triangle are required
+positions. Its two legs must then satisfy
+\begin{equation}\label{eq:legs}
+ \Delta x_i\ge k,\qquad |\Delta y_i|\ge k,
+ \qquad c_i=\sqrt{(\Delta x_i)^2+(\Delta y_i)^2}\ge\sqrt2\,k.
+\end{equation}
+Requiring only $c_i\ge k$ would miss the obstruction: a long chord can
+still have an impermissibly short leg. A horizontal chord has a zero
+vertical leg and does not provide a nondegenerate right triangle.
+
+Adding the horizontal legs and the hypotenuses gives, respectively,
+$Nk\le b-a$ and $N\sqrt2\,k\le L_N\le L$. Consequently every
+admissible partition obeys the general count bound
+\begin{equation}\label{eq:general-count}
+ \boxed{N\le\left\lfloor\min\left\{
+ \frac{b-a}{k},\frac{L}{\sqrt2\,k}\right\}\right\rfloor.}
+\end{equation}
+This is an upper bound, not an existence theorem. Leg constraints need
+not be simultaneously achievable, and a prescribed discrete position
+space might not contain the proposed vertices at all. Nor is a continuum
+limit available by increasing $N$ at fixed $k$ on a fixed interval.
+
+To obtain an exact count for a specified construction, keep the horizontal
+steps equal. Put $h_n=(b-a)/n$. The largest uniform count passing the
+individual-triangle constraints is
+\begin{equation}\label{eq:uniform-generic}
+ N_{\rm unif}=\max\left(\{0\}\cup\left\{n\in\mathbb N:
+ h_n\ge k,\ \min_{1\le i\le n}
+ |f(a+ih_n)-f(a+(i-1)h_n)|\ge k\right\}\right).
+\end{equation}
+The value zero records that no such partition exists. With the specified
+corner choice, the leg inequalities also ensure separation of the whole
+vertex set: different horizontal coordinates differ by at least $k$;
+at a shared coordinate the only possible distinct vertices are the curve
+point and its corner, separated by a vertical leg. Coincident vertices
+are identified. Membership in a preassigned position space is still an
+additional requirement.
+
+For $f(x)=x^2$, the vertical increment has magnitude
+\begin{equation}\label{eq:parabola-increment}
+ |\Delta y_i|=h_n\,|2a+(2i-1)h_n|.
+\end{equation}
+On our symmetric interval $[-3,3]$, every odd $n$ has a central chord
+joining points of equal height and fails the vertical-leg condition.
+For even $n$, the two smallest vertical legs, next to the vertex, have
+length $h_n^2$. All other vertical legs are larger. Hence the conditions
+are exactly
+\begin{equation}\label{eq:even}
+ n\ \text{even},\qquad h_n=6/n\ge k,\qquad h_n^2\ge k.
+\end{equation}
+The maximum uniform count is therefore
+\begin{equation}\label{eq:nk}
+ \boxed{N(k)=2\left\lfloor\min\left\{
+ \frac3k,\frac3{\sqrt{k}}\right\}\right\rfloor.}
+\end{equation}
+For $0<k\le3$ this is at least two; for $k>3$ no uniform partition
+of this kind exists. At $k=1$ it permits six triangles, and at $k=0.1$
+it permits eighteen. Writing $n=2m$, every triangle vertex lies in
+$h_n\mathbb Z\times h_n^2\mathbb Z$; conditions \eqref{eq:even}
+therefore give a second direct check that all distinct vertices are
+mutually separated by at least $k$. This constructs a finite admissible
+position set, without assuming a physical lattice. It does not optimize
+over nonuniform placements.
+
+\notesubsection{The price of stopping}
+How much length is lost when refinement stops? Define
+\begin{equation}\label{eq:error}
+ E_N=L-L_N\ge0.
+\end{equation}
+For a $C^2$ graph with $|f''|\le M$, every partition satisfies
+\begin{equation}\label{eq:bound}
+ 0\le E_N\le\frac{M^2}{24}\sum_{i=1}^N(\Delta x_i)^3
+ \le\frac{M^2(b-a)\delta^2}{24},\qquad
+ \delta=\max_i\Delta x_i.
+\end{equation}
+To prove this, on a cell of width $h$ put $p=f'$, $\bar p=h^{-1}\int p$,
+and $G(p)=\sqrt{1+p^2}$. Its chord length is $hG(\bar p)$.
+Since $0<G''\le1$ and $|p(x)-p(t)|\le M|x-t|$, its arc excess satisfies
+\[
+ \int G(p)\,dx-hG(\bar p)
+ \le\tfrac12\int(p-\bar p)^2dx
+ =\frac1{4h}\iint(p(x)-p(t))^2dx\,dt
+ \le\frac{M^2h^3}{24}.
+\]
+Summing proves \eqref{eq:bound}. For uniform $h=(b-a)/N$, the bound
+is $M^2(b-a)^3/(24N^2)$, and midpoint expansion gives
+\begin{equation}\label{eq:generic-asymptotic}
+ E_N=\frac{h^2}{24}\int_a^b
+ \frac{f''(x)^2}{(1+f'(x)^2)^{3/2}}\,dx+o(h^2),
+ \qquad h\to0.
+\end{equation}
+For the parabola, take $N=N(k)\ge2$ and $h=6/N$. Its chord sum is
+exactly the midpoint rule for $g(x)=\sqrt{1+4x^2}$, giving
+\begin{equation}\label{eq:exact-error}
+ \boxed{E(k)=3\sqrt{37}+\tfrac12\log(6+\sqrt{37})
+ -h\sum_{i=1}^{N(k)}\sqrt{1+[-6+(2i-1)h]^2}.}
+\end{equation}
+Since $M=2$, \eqref{eq:bound} gives $E(k)\le h^2$. More precisely,
+$g'(3)-g'(-3)=24/\sqrt{37}$, and the midpoint expansion gives
+\begin{equation}\label{eq:asymptotic}
+ E(k)=\frac{h^2}{24}\bigl(g'(3)-g'(-3)\bigr)+O(h^4)
+     =\frac{h^2}{\sqrt{37}}+O(h^4).
+\end{equation}
+\begin{center}
+\small
+\input{results_table.tex}
+\end{center}
+The table uses the exact sum. As $k\downarrow0$, \eqref{eq:nk} implies
+$h^2\sim k$, including the floor's effect. Therefore
+\begin{equation}\label{eq:k-error}
+ \boxed{E(k)\sim k/\sqrt{37}=0.164398987\ldots\,k.}
+\end{equation}
+The flat vertex explains the scaling: its shortest vertical leg forces
+$h\ge\sqrt{k}$. This is the stated construction's error, not a universal
+lower bound for all estimators. The analytic integral remains available;
+the distance gap removes this construction's unlimited refinement.
+
+\input{main_result.tex}
+
+\begingroup\footnotesize
+\begin{thebibliography}{3}
+\footnotesize
+\setlength{\itemsep}{0pt}
+\bibitem{landers} J. R. Landers, \emph{Consequences of Minimum Distance
+in Mathematics and Physics} (2026), sections on the distance gap and
+surviving triangles. Repository manuscript.
+\bibitem{triangles} J. R. Landers, \emph{How large must a triangle be
+to survive? Minimum-distance exclusion under two sampling laws} (2026).
+Repository companion note; context on shortest-side constraints.
+\bibitem{floater} M. S. Floater, A. F. Rasmussen, and U. Reif,
+\emph{Extrapolation methods for approximating arc length and surface area},
+Numerical Algorithms (2007). \href{https://doi.org/10.1007/s11075-007-9095-1}{doi:10.1007/s11075-007-9095-1}.
+\end{thebibliography}
+\endgroup
+\end{document}
